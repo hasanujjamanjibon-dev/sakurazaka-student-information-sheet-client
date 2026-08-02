@@ -1,0 +1,81 @@
+@import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap");
+@plugin "daisyui";
+
+@font-face {
+  font-family: "Kalpurush";
+  src: url("./assets/fonts/Kalpurush.ttf") format("truetype");
+}
+
+/* Chrome, Edge, Safari */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+:root {
+  color-scheme: light;
+  font-family: "Poppins", "Kalpurush", sans-serif;
+  background-color: #f8fafc;
+}
+
+html {
+  font-family: inherit;
+  line-height: 1.5;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #0f172a;
+  background-attachment: fixed;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  margin: 0;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 18mm;
+}
+
+@media print {
+  body {
+    background: #fff;
+  }
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  .print\:border-0 {
+    border: 0 !important;
+  }
+  .break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
