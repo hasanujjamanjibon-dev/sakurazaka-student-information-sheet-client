@@ -23,7 +23,7 @@ export default function StudentInformation() {
       {/* Student Photo */}
       <label
         htmlFor="uploadFile1"
-        className="w-40 h-auto mx-auto  my-10 border-2 border-dashed border-slate-300 rounded-lg  cursor-pointer bg-white flex flex-col"
+        className="w-40 h-auto mx-auto  my-10 border-2 border-dashed border-blue-600 rounded-lg  cursor-pointer bg-white flex flex-col"
       >
         {studentPhotoPreview ? (
           <>
