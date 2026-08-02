@@ -24,7 +24,7 @@ const SponsorInformation = () => {
       {/* Sponsor Photo */}
       <label
         htmlFor="uploadFile2"
-        className="w-40 h-auto mx-auto border-2 my-10  border-dashed border-slate-300 rounded-lg  cursor-pointer bg-white flex flex-col"
+        className="w-40 h-auto mx-auto border-2 my-10  border-dashed border-green-600 rounded-lg  cursor-pointer bg-white flex flex-col"
       >
         {sponsorPhotoPreview ? (
           <>
@@ -62,7 +62,7 @@ const SponsorInformation = () => {
               </h3>
 
               <p className="text-xs text-gray-500 mt-2 text-center px-2">
-               Only PNG, JPG are Allowed
+                Only PNG, JPG are Allowed
               </p>
             </div>
           </>
