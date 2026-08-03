@@ -7,9 +7,5 @@ const Routes = createBrowserRouter([
     path: "/",
     element: <Application />,
   },
-//   {
-//     path: "print-preview",
-//     element: <PrintPreview />,
-//   },
 ]);
 export default Routes;
