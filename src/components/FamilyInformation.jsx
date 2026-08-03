@@ -41,13 +41,17 @@ const FamilyInformation = () => {
               placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
             />
 
-            <InputField label="বাবার জন্ম তারিখ" type="date" name="fatherDob" />
+            <InputField
+              label="বাবার জন্ম তারিখ (মাস/দিন/বছর)"
+              type="date"
+              name="fatherDob"
+            />
 
             <InputField
               label="বাবার পেশা"
               type="text"
               name="fatherOccupation"
-              placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
+              placeholder="ইংরেজিতে লিখতে হবে"
             />
           </>
         )}
@@ -57,13 +61,12 @@ const FamilyInformation = () => {
               label="মাতার সম্পূর্ণ নাম"
               type="text"
               name="motherName"
-              placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
+              placeholder="ইংরেজিতে লিখতে হবে"
             />
             <InputField
-              label="মাতার জন্ম তারিখ"
+              label="মাতার জন্ম তারিখ (মাস/দিন/বছর)"
               type="date"
               name="motherDob"
-              placeholder="সার্টিফিকেট অনুযায়ী জন্ম তারিখ লিখতে হবে"
             />
             <InputField
               label="মাতার পেশা"
@@ -87,16 +90,15 @@ const FamilyInformation = () => {
           placeholder="Elder Brother, Younger Sister, Elder Sister, Younger Brother"
         />
         <InputField
-          label="ভাই/বোনের জন্ম তারিখ"
+          label="ভাই/বোনের জন্ম তারিখ (মাস/দিন/বছর)"
           type="date"
           name="siblingDob"
-          placeholder="সার্টিফিকেট অনুযায়ী জন্ম তারিখ লিখতে হবে"
         />
         <InputField
           label="ভাই/বোনের পেশা"
           type="text"
           name="siblingOccupation"
-          placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
+          placeholder="ইংরেজিতে লিখতে হবে"
         />
       </div>
     </section>

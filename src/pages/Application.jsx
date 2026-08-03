@@ -10,6 +10,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { buildPayload } from "../utils/buildPayload";
 import { uploadImages } from "../utils/uploadImages";
+import { formatDate } from "../utils/formatDate";
 
 const Application = () => {
   const [loading, setLoading] = useState(false);
@@ -27,6 +28,30 @@ const Application = () => {
 
   const onSubmit = async (data) => {
     try {
+      const phoneFields = [
+        { key: "studentPhone", label: "Student Number" },
+        { key: "studentAltPhone", label: "Student Another Number" },
+        { key: "studentFatherPhone", label: "Father Number" },
+        { key: "studentMotherPhone", label: "Mother Number" },
+      ];
+
+      for (let i = 0; i < phoneFields.length; i++) {
+        for (let j = i + 1; j < phoneFields.length; j++) {
+          const value1 = (data[phoneFields[i].key] || "").trim();
+          const value2 = (data[phoneFields[j].key] || "").trim();
+
+          if (value1 && value2 && value1 === value2) {
+            Swal.fire({
+              icon: "warning",
+              title: "Duplicate Mobile Number",
+              showConfirmButton: false,
+              timer: 2500,
+              text: `${phoneFields[i].label} and ${phoneFields[j].label} cannot be the same.`,
+            });
+            return;
+          }
+        }
+      }
       setLoading(true);
       setProgress(10);
       setProgressText("Preparing data...");
@@ -36,8 +61,18 @@ const Application = () => {
 
       data.studentPhoto = image.studentPhoto;
       data.sponsorPhoto = image.sponsorPhoto;
-      
+
       const payload = buildPayload(data);
+      // Student DOB
+      payload.studentInformation.studentDob = formatDate(
+        payload.studentInformation.studentDob,
+      );
+
+      // Family DOB
+      payload.familyInformation = payload.familyInformation.map((member) => ({
+        ...member,
+        dob: formatDate(member.dob),
+      }));
       setProgress(75);
       setProgressText("Saving information...");
       await axios.post(`${backendBaseURL}/api/data`, payload);
@@ -107,7 +142,6 @@ const Application = () => {
               {loading ? "Submitting..." : "Submit Information"}
             </button>
           </div>
-          {/* <button type="submit">Submit</button> */}
         </form>
       </FormProvider>
     </div>

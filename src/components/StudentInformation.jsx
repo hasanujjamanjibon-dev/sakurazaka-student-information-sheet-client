@@ -102,7 +102,6 @@ export default function StudentInformation() {
           label="ছাত্র/ছাত্রীর জন্ম তারিখ"
           type="date"
           name="studentDob"
-          placeholder="পাসপোর্ট অনুযায়ী জন্ম তারিখ লিখতে হবে"
         />
         <InputField
           label="ছাত্র/ছাত্রীর বাবার নাম্বার (ইংরেজিতে)"

@@ -116,6 +116,22 @@ export const buildPayload = (data) => ({
       examDate: data.JLCTExamDate,
       expectedExamDate: data.JLCTExpectedExamDate,
     },
+    {
+      exam: "Top_J",
+      level: data.TopJLevel,
+      rollNumber: data.TopJRollNumber,
+      score: data.TopJScore,
+      examDate: data.TopJExamDate,
+      expectedExamDate: data.TopJExpectedExamDate,
+    },
+    {
+      exam: "J_Test",
+      level: data.J_TestLevel,
+      rollNumber: data.J_TestRollNumber,
+      score: data.J_TestScore,
+      examDate: data.J_TestExamDate,
+      expectedExamDate: data.J_TestExpectedExamDate,
+    },
   ].filter(
     (item) =>
       item.rollNumber || item.score || item.examDate || item.expectedExamDate,
