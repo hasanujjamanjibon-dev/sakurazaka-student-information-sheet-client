@@ -34,6 +34,32 @@ const Application = () => {
         { key: "studentFatherPhone", label: "Father Number" },
         { key: "studentMotherPhone", label: "Mother Number" },
       ];
+      // Required + 11 digit validation
+      for (const field of phoneFields) {
+        const phone = (data[field.key] || "").trim();
+
+        if (!phone) {
+          Swal.fire({
+            icon: "warning",
+            title: "Number Required",
+            text: `${field.label} is empty. Please enter mobile number.`,
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          return;
+        }
+
+        if (!/^[0-9]{11}$/.test(phone)) {
+          Swal.fire({
+            icon: "warning",
+            title: "Invalid Mobile Number",
+            text: `${field.label} must be exactly 11 digits.`,
+            showConfirmButton: false,
+            timer: 3000,
+          });
+          return;
+        }
+      }
 
       for (let i = 0; i < phoneFields.length; i++) {
         for (let j = i + 1; j < phoneFields.length; j++) {
