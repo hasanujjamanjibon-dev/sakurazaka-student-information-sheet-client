@@ -9,8 +9,8 @@ export default function useStudents(page, search, limit) {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-      console.log("API Response:", res.data);
       const res = await getStudents(page, limit, search);
+      console.log("API Response:", res.data);
 
       setStudents(res.data.students);
       setTotal(res.data.total);
