@@ -9,7 +9,7 @@ const Routes = createBrowserRouter([
     element: <Application />,
   },
   {
-    path: "application-list",
+    path: "dashboard",
     element: <AllApplication />,
   },
 ]);

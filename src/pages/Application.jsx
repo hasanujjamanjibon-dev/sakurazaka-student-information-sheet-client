@@ -111,7 +111,7 @@ const Application = () => {
         timer: 1500,
         showConfirmButton: false,
       });
-      methods.reset();
+      // methods.reset();
     } catch (error) {
       Swal.fire({
         icon: "error",

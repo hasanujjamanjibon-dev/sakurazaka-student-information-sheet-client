@@ -9,16 +9,18 @@ import { getStatistics } from "../services/studentApi";
 import useStudents from "../hooks/useStudents";
 import { deleteStudent } from "../services/studentApi";
 import DeleteModal from "../components/dashboard/DeleteModal";
+import ApplicationTable from "../components/dashboard/ApplicationTable";
 
 export default function AllApplication() {
   const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(24);
   const [statistics, setStatistics] = useState({
     total: 0,
     thisMonth: 0,
     today: 0,
   });
   const [search, setSearch] = useState("");
-  const { students, total, refetch } = useStudents(page, search);
+  const { students, total, refetch } = useStudents(page, search, limit);
 
   const [selectedStudent, setSelectedStudent] = useState(null);
 
@@ -74,20 +76,21 @@ export default function AllApplication() {
 
         <SearchBar search={search} setSearch={setSearch} />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5 mt-6">
-          {students.map((student) => (
-            <StudentCard
-              key={student._id}
-              student={student}
-              onDelete={(student) => {
-                setSelectedStudent(student);
-                setOpenDelete(true);
-              }}
-            />
-          ))}
-        </div>
+        <ApplicationTable
+          students={students}
+          onDelete={(student) => {
+            setSelectedStudent(student);
+            setOpenDelete(true);
+          }}
+        />
 
-        <Pagination page={page} total={total} setPage={setPage} />
+        <Pagination
+          page={page}
+          total={total}
+          limit={limit}
+          setLimit={setLimit}
+          setPage={setPage}
+        />
         <DeleteModal
           open={openDelete}
           loading={loadingDelete}
