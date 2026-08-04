@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function TableRow({ serial, student, onDelete }) {
   const info = student.studentInformation || {};
   const sponsor = student.sponsorInformation || {};
-  console.log("Student Info:", student);
+
   return (
     <tr className="border-b border-gray-100 hover:bg-[#FFF8F6] transition">
       <td className="px-4 py-4 text-center text-2xl">{serial}.</td>

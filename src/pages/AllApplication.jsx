@@ -41,7 +41,7 @@ export default function AllApplication() {
       setOpenDelete(false);
       setSelectedStudent(null);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setLoadingDelete(false);
     }
@@ -53,7 +53,7 @@ export default function AllApplication() {
 
       setStatistics(res.data);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   };
 

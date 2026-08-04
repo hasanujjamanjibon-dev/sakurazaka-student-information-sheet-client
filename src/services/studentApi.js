@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const API = import.meta.env.VITE_BackendURL;
+console.log(API);
 
 export const getStudents = (page, limit, search) => {
   return axios.get(`${API}/api/students`, {
