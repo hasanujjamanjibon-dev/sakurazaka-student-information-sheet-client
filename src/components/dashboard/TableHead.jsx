@@ -16,7 +16,7 @@ export default function TableHead() {
         {/* <th className="px-4 py-4 text-left font-semibold">Photo URL</th> */}
 
         <th className="px-4 py-4 text-center font-semibold w-[220px]">
-          View/Edit/Print/Delete
+          Actions
         </th>
       </tr>
     </thead>
