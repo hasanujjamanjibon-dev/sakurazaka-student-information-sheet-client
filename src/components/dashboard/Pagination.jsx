@@ -5,13 +5,7 @@ import {
   ChevronsRight,
 } from "lucide-react";
 
-export default function Pagination({
-  page,
-  total,
-  limit = 10,
-  setLimit,
-  setPage,
-}) {
+export default function Pagination({ page, total, limit, setPage, setLimit }) {
   const totalPages = Math.ceil(total / limit);
 
   if (totalPages <= 1) return null;

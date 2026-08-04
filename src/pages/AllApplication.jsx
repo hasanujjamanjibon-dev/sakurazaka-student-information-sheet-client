@@ -88,8 +88,8 @@ export default function AllApplication() {
           page={page}
           total={total}
           limit={limit}
-          setLimit={setLimit}
           setPage={setPage}
+          setLimit={setLimit}
         />
         <DeleteModal
           open={openDelete}

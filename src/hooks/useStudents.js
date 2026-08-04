@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from "react";
 import { getStudents } from "../services/studentApi";
 
-export default function useStudents(page, search, limit = 24) {
+export default function useStudents(page, search, limit) {
   const [students, setStudents] = useState([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -9,7 +9,7 @@ export default function useStudents(page, search, limit = 24) {
   const loadData = useCallback(async () => {
     try {
       setLoading(true);
-
+      console.log("API Response:", res.data);
       const res = await getStudents(page, limit, search);
 
       setStudents(res.data.students);
