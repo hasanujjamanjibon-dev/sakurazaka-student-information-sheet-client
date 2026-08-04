@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API = import.meta.env.VITE_BackendURL.replace(/\/$/, "");
+const API = import.meta.env.VITE_BackendURL;
 
 export const getStudents = (page, limit, search) => {
   return axios.get(`${API}/api/students`, {

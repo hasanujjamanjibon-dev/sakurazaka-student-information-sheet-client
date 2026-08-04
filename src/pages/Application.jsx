@@ -24,7 +24,7 @@ const Application = () => {
 
   const [progress, setProgress] = useState(0);
   const [progressText, setProgressText] = useState("");
-  const backendBaseURL = import.meta.env.VITE_BackendURL.replace(/\/$/, "");
+  const backendBaseURL = import.meta.env.VITE_BackendURL;
 
   const onSubmit = async (data) => {
     try {
