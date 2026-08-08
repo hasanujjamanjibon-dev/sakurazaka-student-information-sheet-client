@@ -6,9 +6,10 @@ import {
 } from "lucide-react";
 
 export default function Pagination({ page, total, limit, setPage, setLimit }) {
-  const totalPages = Math.ceil(total / limit);
+  const totalPages = Math.max(1, Math.ceil(total / limit));
+  // const totalPages = Math.ceil(total / limit);
 
-  if (totalPages <= 1) return null;
+  // if (totalPages <= 1) return null;
 
   const pages = [];
 

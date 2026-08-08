@@ -22,7 +22,8 @@ export default function TableRow({ serial, student, onDelete }) {
 
       <td className="px-4 py-4">
         <h3 className="font-semibold text-[#6A1B2E]">
-          {info.studentName?.toUpperCase()}
+          {info.studentName?.charAt(0).toUpperCase() +
+            info.studentName?.slice(1)}
         </h3>
 
         <p className="text-sm text-gray-500 mt-1">{info.studentPhone}</p>
@@ -32,7 +33,8 @@ export default function TableRow({ serial, student, onDelete }) {
 
       <td className="px-4 py-4">
         <h3 className="font-medium text-gray-800">
-          {sponsor.sponsorName?.toUpperCase()}
+          {sponsor.sponsorName?.charAt(0).toUpperCase() +
+            sponsor.sponsorName?.slice(1)}
         </h3>
 
         <p className="text-sm text-gray-500 mt-1">{sponsor.sponsorPhone}</p>
@@ -44,7 +46,7 @@ export default function TableRow({ serial, student, onDelete }) {
 
       {/* Student Photo Link */}
 
-      <td className="px-4 py-4 max-w-[220px]">
+      <td className="px-4 py-4 max-w-55">
         <a
           href={info.studentPhoto}
           target="_blank"
@@ -62,8 +64,6 @@ export default function TableRow({ serial, student, onDelete }) {
           Sponsor Photo URL
         </a>
       </td>
-
-
 
       {/* Actions */}
 
