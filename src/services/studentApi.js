@@ -3,16 +3,16 @@ import axios from "axios";
 const API = import.meta.env.VITE_BackendURL;
 console.log(API);
 
-export const getStudents = (page, limit, search) => {
+export const getStudents = (page, limit, search, date) => {
   return axios.get(`${API}/api/students`, {
     params: {
       page,
       limit,
-      q: search,
+      q: search || "",
+      date: date || "",
     },
   });
 };
-
 export const getStudent = (id) => axios.get(`${API}/api/data/${id}`);
 
 export const deleteStudent = (id) => axios.delete(`${API}/api/data/${id}`);
