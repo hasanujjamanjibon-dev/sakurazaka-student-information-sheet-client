@@ -28,6 +28,14 @@ export default function AllApplication() {
 
   const [loadingDelete, setLoadingDelete] = useState(false);
 
+  const handleRefresh = async () => {
+    try {
+      await Promise.all([refetch(), loadStatistics()]);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleDelete = async () => {
     try {
       setLoadingDelete(true);
@@ -59,14 +67,8 @@ export default function AllApplication() {
 
   useEffect(() => {
     loadStatistics();
+  }, []);
 
-    const interval = setInterval(() => {
-      loadStatistics();
-      refetch();
-    }, 5000);
-
-    return () => clearInterval(interval);
-  }, [refetch]);
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
@@ -74,7 +76,11 @@ export default function AllApplication() {
       <div className="max-w-7xl mx-auto p-6">
         <Statistics statistics={statistics} />
 
-        <SearchBar search={search} setSearch={setSearch} />
+        <SearchBar
+          search={search}
+          setSearch={setSearch}
+          handleRefresh={handleRefresh}
+        />
 
         <ApplicationTable
           students={students}
