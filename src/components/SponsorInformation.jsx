@@ -2,15 +2,15 @@ import React from "react";
 import InputField from "./common/InputField";
 import { useFormContext } from "react-hook-form";
 
-const SponsorInformation = () => {
+const SponsorInformation = ({ existingPhoto = "" }) => {
   const { register, watch } = useFormContext();
 
   const sponsorPhoto = watch("sponsorPhoto");
 
   const sponsorPhotoPreview =
-    sponsorPhoto && sponsorPhoto.length > 0
+    sponsorPhoto instanceof FileList && sponsorPhoto.length > 0
       ? URL.createObjectURL(sponsorPhoto[0])
-      : null;
+      : existingPhoto || null;
 
   return (
     <section className="w-full rounded-xl border border-green-500 bg-white shadow-sm overflow-hidden ">

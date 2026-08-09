@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API = import.meta.env.VITE_BackendURL;
-console.log(API);
 
 export const getStudents = (page, limit, search, date) => {
   return axios.get(`${API}/api/students`, {
@@ -13,11 +12,19 @@ export const getStudents = (page, limit, search, date) => {
     },
   });
 };
-export const getStudent = (id) => axios.get(`${API}/api/data/${id}`);
 
-export const deleteStudent = (id) => axios.delete(`${API}/api/data/${id}`);
+export const getStudent = (id) => {
+  return axios.get(`${API}/api/data/${id}`);
+};
 
-export const updateStudent = (id, data) =>
-  axios.put(`${API}/api/data/${id}`, data);
+export const deleteStudent = (id) => {
+  return axios.delete(`${API}/api/data/${id}`);
+};
 
-export const getStatistics = () => axios.get(`${API}/api/statistics`);
+export const updateStudent = (id, data) => {
+  return axios.put(`${API}/api/data/${id}`, data);
+};
+
+export const getStatistics = () => {
+  return axios.get(`${API}/api/statistics`);
+};

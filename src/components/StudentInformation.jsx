@@ -3,13 +3,15 @@ import InputField from "./common/InputField";
 import { useFormContext } from "react-hook-form";
 import TextAreaFiled from "./common/TextAreaFiled";
 
-export default function StudentInformation() {
+export default function StudentInformation({ existingPhoto = "" }) {
   const { register, watch } = useFormContext();
+
   const studentPhoto = watch("studentPhoto");
+
   const studentPhotoPreview =
-    studentPhoto && studentPhoto.length > 0
+    studentPhoto instanceof FileList && studentPhoto.length > 0
       ? URL.createObjectURL(studentPhoto[0])
-      : null;
+      : existingPhoto || null;
 
   return (
     <section className="w-full rounded-xl border border-blue-500 bg-white shadow-sm overflow-hidden ">
