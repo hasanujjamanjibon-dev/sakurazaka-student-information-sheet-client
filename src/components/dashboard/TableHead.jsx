@@ -1,6 +1,6 @@
 export default function TableHead() {
   return (
-    <thead>
+    <thead className="bg-gradient-to-r from-[#5B1C1C] via-[#6A1B2E] to-[#203864] text-white sticky top-0 z-10">
       <tr className="bg-gradient-to-r from-[#5B1C1C] via-[#6A1B2E] to-[#203864] text-white">
         <th className="px-6 py-4  font-semibold text-center">Sl No.</th>
         <th className="px-6 py-4  font-semibold text-center w-[120px]">
@@ -9,9 +9,9 @@ export default function TableHead() {
 
         <th className="px-4 py-4  font-semibold text-center">Student Name</th>
 
-        <th className="px-4 py-4  font-semibold text-center">Sponsor</th>
+        <th className="px-4 py-4  font-semibold text-center">Sponsor Name</th>
 
-        <th className="px-4 py-4  font-semibold text-center">D.O.B</th>
+        <th className="px-4 py-4  font-semibold text-center">D.O.B.</th>
 
         <th className="px-4 py-4  font-semibold text-center">Photo URL</th>
 

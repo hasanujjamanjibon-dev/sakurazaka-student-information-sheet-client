@@ -39,7 +39,7 @@ export default function AllApplication() {
   // =========================
   // Students
   // =========================
-  const { students, total, refetch } = useStudents(
+  const { students, total, refetch, loading } = useStudents(
     page,
     search,
     limit,
@@ -139,6 +139,7 @@ export default function AllApplication() {
         {/* ================= Table ================= */}
         <ApplicationTable
           students={students}
+          loading={loading}
           onDelete={(student) => {
             setSelectedStudent(student);
             setOpenDelete(true);
