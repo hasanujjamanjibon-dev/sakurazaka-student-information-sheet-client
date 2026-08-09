@@ -101,7 +101,7 @@ export default function StudentInformation({ existingPhoto = "" }) {
           placeholder="01xxxxxxxx"
         />
         <InputField
-          label="ছাত্র/ছাত্রীর জন্ম তারিখ"
+          label="ছাত্র/ছাত্রীর জন্ম তারিখ (মাস/দিন/বছর)"
           type="date"
           name="studentDob"
         />

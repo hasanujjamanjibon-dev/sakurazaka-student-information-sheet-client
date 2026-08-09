@@ -11,7 +11,6 @@ export default function TableBody({ students, onDelete, loading }) {
         : students?.map((student, i) => (
             <TableRow
               key={student._id}
-              serial={i + 1}
               student={student}
               onDelete={onDelete}
             />

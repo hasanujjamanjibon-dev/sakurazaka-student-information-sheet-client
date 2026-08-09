@@ -1,8 +1,8 @@
-import { Eye, Pencil, Printer, Trash2 } from "lucide-react";
+import { CalendarDays, Eye, Pencil, Printer, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 
-export default function TableRow({ serial, student, onDelete }) {
+export default function TableRow({ student, onDelete }) {
   const info = student.studentInformation || {};
   console.log("Student Info:", student);
   const sponsor = student.sponsorInformation || {};
@@ -18,10 +18,15 @@ export default function TableRow({ serial, student, onDelete }) {
   return (
     <tr className="transition-colors hover:bg-gray-50">
       {/* Serial */}
-      <td className="min-w-[75px] px-4 py-4 text-center whitespace-nowrap">
-        {formatDate(student.createdAt)}
-      </td>
+      <td className="px-4 py-4 whitespace-nowrap">
+        <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
+          <CalendarDays size={15} className="text-[#6A1B2E]" />
 
+          <span className="text-sm font-medium text-gray-700">
+            {formatDate(student.createdAt)}
+          </span>
+        </div>
+      </td>
       {/* Student Image */}
       <td className="min-w-[100px] px-4 py-4">
         <div className="flex justify-center">
@@ -32,7 +37,6 @@ export default function TableRow({ serial, student, onDelete }) {
           />
         </div>
       </td>
-
       {/* Student */}
       <td className="min-w-[210px] px-4 py-4">
         <h3 className="font-semibold text-[#6A1B2E] whitespace-nowrap">
@@ -43,7 +47,6 @@ export default function TableRow({ serial, student, onDelete }) {
           {info.studentPhone}
         </p>
       </td>
-
       {/* Sponsor */}
       <td className="min-w-[180px] px-4 py-4">
         <h3 className="font-medium text-gray-800 whitespace-nowrap">
@@ -54,12 +57,19 @@ export default function TableRow({ serial, student, onDelete }) {
           {sponsor.sponsorPhone}
         </p>
       </td>
-
-      {/* DOB */}
-      <td className="min-w-[140px] px-4 py-4 text-center whitespace-nowrap">
+ 
+      {/* <td className="min-w-[140px] px-4 py-4 text-center whitespace-nowrap">
         {info.studentDob.replaceAll(" ", "-")}
-      </td>
+      </td> */}
+      <td className="px-4 py-4 whitespace-nowrap">
+        <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
+          <CalendarDays size={15} className="text-[#6A1B2E]" />
 
+          <span className="text-sm font-medium text-gray-700">
+            {formatDate(Number(new Date(info.studentDob)))}
+          </span>
+        </div>
+      </td>
       {/* Photo URLs */}
       <td className="min-w-[190px] px-4 py-4">
         <div className="space-y-1 whitespace-nowrap">
@@ -82,7 +92,6 @@ export default function TableRow({ serial, student, onDelete }) {
           </a>
         </div>
       </td>
-
       {/* Actions */}
       <td className="min-w-[190px] px-4 py-4">
         <div className="flex items-center justify-center gap-2 whitespace-nowrap">
