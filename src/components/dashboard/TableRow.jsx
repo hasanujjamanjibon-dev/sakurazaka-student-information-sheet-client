@@ -1,8 +1,10 @@
 import { Eye, Pencil, Printer, Trash2 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { formatDate } from "../../utils/formatDate";
 
 export default function TableRow({ serial, student, onDelete }) {
   const info = student.studentInformation || {};
+  console.log("Student Info:", student);
   const sponsor = student.sponsorInformation || {};
 
   const studentName = info.studentName
@@ -17,7 +19,7 @@ export default function TableRow({ serial, student, onDelete }) {
     <tr className="transition-colors hover:bg-gray-50">
       {/* Serial */}
       <td className="min-w-[75px] px-4 py-4 text-center whitespace-nowrap">
-        {serial}.
+        {formatDate(student.createdAt)}
       </td>
 
       {/* Student Image */}
@@ -55,7 +57,7 @@ export default function TableRow({ serial, student, onDelete }) {
 
       {/* DOB */}
       <td className="min-w-[140px] px-4 py-4 text-center whitespace-nowrap">
-        {info.studentDob}
+        {info.studentDob.replaceAll(" ", "-")}
       </td>
 
       {/* Photo URLs */}

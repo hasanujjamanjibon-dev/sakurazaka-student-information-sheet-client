@@ -4,7 +4,7 @@ export default function TableHead() {
       <tr>
         {/* Sl No. */}
         <th className="min-w-[75px] px-4 py-4 text-center font-semibold whitespace-nowrap">
-          Sl No.
+          Created At
         </th>
 
         {/* Photo */}
