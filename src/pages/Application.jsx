@@ -16,6 +16,7 @@ import { uploadImages } from "../utils/uploadImages";
 import { formatDate } from "../utils/formatDate";
 
 import { getStudent, updateStudent } from "../services/studentApi";
+import Footer from "../components/Footer";
 
 const Application = () => {
   const { id } = useParams();
@@ -525,6 +526,7 @@ const Application = () => {
         <CurrentEducationalInformation />
 
         <JapaneseLanguage />
+        <Footer />
 
         <div className="fixed bottom-2 left-0 right-0 mt-8 text-center">
           <button type="submit" className="btn btn-success" disabled={loading}>
