@@ -7,7 +7,7 @@ export default function ApplicationTable({ students, onDelete, loading }) {
       {/* =========================
           TABLE SCROLL AREA
       ========================= */}
-      <div className="max-h-[480px] overflow-auto">
+      <div className="max-h-[470px] overflow-auto">
         <table className="w-full min-w-[1100px] border-collapse">
           {/* Header */}
           <TableHead />

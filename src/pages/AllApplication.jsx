@@ -20,7 +20,7 @@ export default function AllApplication() {
   // Pagination
   // =========================
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(24);
+  const [limit, setLimit] = useState(10);
 
   // =========================
   // Statistics
