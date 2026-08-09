@@ -10,7 +10,7 @@ export default function SearchBar({
   refreshing,
 }) {
   return (
-    <div className="bg-white rounded-xl shadow p-4 mt-6 flex items-center justify-between gap-4 ">
+    <div className="bg-white rounded-xl shadow p-4 mt-6 flex flex-wrap md:flex-nowrap items-center justify-between gap-4">
       <div className="flex items-center flex-1 gap-2 bg-white rounded-lg px-4 py-2">
         <Search className="text-gray-500" size={18} />
         <input

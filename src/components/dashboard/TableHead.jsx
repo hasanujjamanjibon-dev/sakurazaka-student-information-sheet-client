@@ -1,23 +1,39 @@
 export default function TableHead() {
   return (
-    <thead className="bg-gradient-to-r from-[#5B1C1C] via-[#6A1B2E] to-[#203864] text-white sticky top-0 z-10">
-      <tr className="bg-gradient-to-r from-[#5B1C1C] via-[#6A1B2E] to-[#203864] text-white">
-        <th className="px-6 py-4  font-semibold text-center">Sl No.</th>
-        <th className="px-6 py-4  font-semibold text-center w-[120px]">
+    <thead className="bg-[#26365c] text-white">
+      <tr>
+        {/* Sl No. */}
+        <th className="min-w-[75px] px-4 py-4 text-center font-semibold whitespace-nowrap">
+          Sl No.
+        </th>
+
+        {/* Photo */}
+        <th className="min-w-[100px] px-4 py-4 text-center font-semibold whitespace-nowrap">
           Photo
         </th>
 
-        <th className="px-4 py-4  font-semibold text-center">Student Name</th>
+        {/* Student Name */}
+        <th className="min-w-[210px] px-4 py-4 text-center font-semibold whitespace-nowrap">
+          Student Name
+        </th>
 
-        <th className="px-4 py-4  font-semibold text-center">Sponsor Name</th>
+        {/* Sponsor Name */}
+        <th className="min-w-[180px] px-4 py-4 text-center font-semibold whitespace-nowrap">
+          Sponsor Name
+        </th>
 
-        <th className="px-4 py-4  font-semibold text-center">D.O.B.</th>
+        {/* DOB */}
+        <th className="min-w-[140px] px-4 py-4 text-center font-semibold whitespace-nowrap">
+          D.O.B.
+        </th>
 
-        <th className="px-4 py-4  font-semibold text-center">Photo URL</th>
+        {/* Photo URL */}
+        <th className="min-w-[190px] px-4 py-4 text-center font-semibold whitespace-nowrap">
+          Photo URL
+        </th>
 
-        {/* <th className="px-4 py-4 text-left font-semibold">Photo URL</th> */}
-
-        <th className="px-4 py-4 text-center font-semibold text-center w-[220px]">
+        {/* Actions */}
+        <th className="min-w-[190px] px-4 py-4 text-center font-semibold whitespace-nowrap">
           Actions
         </th>
       </tr>

@@ -25,7 +25,6 @@ export default function Header() {
         </h2>
         <div className="flex items-center gap-5">
           <Bell size={22} />
-
           <img src="/avatar.jpg" className="w-10 h-10 rounded-full" />
         </div>
       </div>

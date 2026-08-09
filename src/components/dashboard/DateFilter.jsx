@@ -28,7 +28,7 @@ export default function DateFilter({
   };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center justify-between gap-2 w-full md:w-auto">
       {/* ================= All Time ================= */}
       <button
         type="button"

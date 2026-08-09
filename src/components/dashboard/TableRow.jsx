@@ -5,74 +5,89 @@ export default function TableRow({ serial, student, onDelete }) {
   const info = student.studentInformation || {};
   const sponsor = student.sponsorInformation || {};
 
+  const studentName = info.studentName
+    ? info.studentName.charAt(0).toUpperCase() + info.studentName.slice(1)
+    : "";
+
+  const sponsorName = sponsor.sponsorName
+    ? sponsor.sponsorName.charAt(0).toUpperCase() + sponsor.sponsorName.slice(1)
+    : "";
+
   return (
-    <tr className="border-b border-gray-100 hover:bg-[#FFF8F6] transition">
-      <td className="px-4 py-4 text-center text-2xl">{serial}.</td>
+    <tr className="transition-colors hover:bg-gray-50">
+      {/* Serial */}
+      <td className="min-w-[75px] px-4 py-4 text-center whitespace-nowrap">
+        {serial}.
+      </td>
 
       {/* Student Image */}
-      <td className="px-4 py-4">
-        <img
-          src={info.studentPhoto}
-          alt=""
-          className="w-16 h-16 rounded-xl object-fill border border-[#5B1C1C] shadow"
-        />
+      <td className="min-w-[100px] px-4 py-4">
+        <div className="flex justify-center">
+          <img
+            src={info.studentPhoto}
+            alt=""
+            className="h-16 w-16 rounded-xl border border-[#5B1C1C] object-fill shadow"
+          />
+        </div>
       </td>
 
       {/* Student */}
-
-      <td className="px-4 py-4">
-        <h3 className="font-semibold text-[#6A1B2E]">
-          {info.studentName?.charAt(0).toUpperCase() +
-            info.studentName?.slice(1)}
+      <td className="min-w-[210px] px-4 py-4">
+        <h3 className="font-semibold text-[#6A1B2E] whitespace-nowrap">
+          {studentName}
         </h3>
 
-        <p className="text-sm text-gray-500 mt-1">{info.studentPhone}</p>
+        <p className="mt-1 text-sm text-gray-500 whitespace-nowrap">
+          {info.studentPhone}
+        </p>
       </td>
 
       {/* Sponsor */}
-
-      <td className="px-4 py-4">
-        <h3 className="font-medium text-gray-800">
-          {sponsor.sponsorName?.charAt(0).toUpperCase() +
-            sponsor.sponsorName?.slice(1)}
+      <td className="min-w-[180px] px-4 py-4">
+        <h3 className="font-medium text-gray-800 whitespace-nowrap">
+          {sponsorName}
         </h3>
 
-        <p className="text-sm text-gray-500 mt-1">{sponsor.sponsorPhone}</p>
+        <p className="mt-1 text-sm text-gray-500 whitespace-nowrap">
+          {sponsor.sponsorPhone}
+        </p>
       </td>
 
       {/* DOB */}
+      <td className="min-w-[140px] px-4 py-4 text-center whitespace-nowrap">
+        {info.studentDob}
+      </td>
 
-      <td className="px-4 py-4 whitespace-nowrap">{info.studentDob}</td>
+      {/* Photo URLs */}
+      <td className="min-w-[190px] px-4 py-4">
+        <div className="space-y-1 whitespace-nowrap">
+          <a
+            href={info.studentPhoto}
+            target="_blank"
+            rel="noreferrer"
+            className="block text-blue-600 hover:underline"
+          >
+            Student Photo URL
+          </a>
 
-      {/* Student Photo Link */}
-
-      <td className="px-4 py-4 max-w-55">
-        <a
-          href={info.studentPhoto}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 hover:underline truncate block "
-        >
-          Student Photo URL
-        </a>
-        <a
-          href={sponsor.sponsorPhoto}
-          target="_blank"
-          rel="noreferrer"
-          className="text-blue-600 hover:underline truncate block"
-        >
-          Sponsor Photo URL
-        </a>
+          <a
+            href={sponsor.sponsorPhoto}
+            target="_blank"
+            rel="noreferrer"
+            className="block text-blue-600 hover:underline"
+          >
+            Sponsor Photo URL
+          </a>
+        </div>
       </td>
 
       {/* Actions */}
-
-      <td className="px-4 py-4">
-        <div className="grid grid-cols-4 gap-2">
+      <td className="min-w-[190px] px-4 py-4">
+        <div className="flex items-center justify-center gap-2 whitespace-nowrap">
           {/* View */}
           <Link
             to={`/student/${student._id}`}
-            className="flex items-center cursor-pointer justify-center gap-1 rounded-lg bg-blue-50 border border-blue-200 px-2 py-2 text-xs font-medium text-blue-700 hover:bg-blue-100 transition"
+            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-700 transition hover:bg-blue-100"
           >
             <Eye size={14} />
           </Link>
@@ -80,23 +95,24 @@ export default function TableRow({ serial, student, onDelete }) {
           {/* Edit */}
           <Link
             to={`/edit/${student._id}`}
-            className="flex items-center cursor-pointer justify-center gap-1 rounded-lg bg-amber-50 border border-amber-200 px-2 py-2 text-xs font-medium text-amber-700 hover:bg-amber-100 transition"
+            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-amber-200 bg-amber-50 text-amber-700 transition hover:bg-amber-100"
           >
             <Pencil size={14} />
           </Link>
 
           {/* Print */}
           <button
-            // onClick={() => onPrint(student)}
-            className="flex items-center justify-center cursor-pointer gap-1 rounded-lg bg-emerald-50 border border-emerald-200 px-2 py-2 text-xs font-medium text-emerald-700 hover:bg-emerald-100 transition"
+            type="button"
+            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100"
           >
             <Printer size={14} />
           </button>
 
           {/* Delete */}
           <button
+            type="button"
             onClick={() => onDelete(student)}
-            className="flex items-center justify-center cursor-pointer gap-1 rounded-lg bg-red-50 border border-red-200 px-2 py-2 text-xs font-medium text-red-700 hover:bg-red-100 transition"
+            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-700 transition hover:bg-red-100"
           >
             <Trash2 size={14} />
           </button>
