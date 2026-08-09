@@ -57,19 +57,21 @@ export default function TableRow({ student, onDelete }) {
           {sponsor.sponsorPhone}
         </p>
       </td>
- 
-      {/* <td className="min-w-[140px] px-4 py-4 text-center whitespace-nowrap">
-        {info.studentDob.replaceAll(" ", "-")}
-      </td> */}
+
       <td className="px-4 py-4 whitespace-nowrap">
         <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
           <CalendarDays size={15} className="text-[#6A1B2E]" />
 
           <span className="text-sm font-medium text-gray-700">
-            {formatDate(Number(new Date(info.studentDob)))}
+            {formatDate(
+              student.studentInformation?.studentDob
+                ? student.studentInformation.studentDob
+                : "-",
+            )}
           </span>
         </div>
       </td>
+
       {/* Photo URLs */}
       <td className="min-w-[190px] px-4 py-4">
         <div className="space-y-1 whitespace-nowrap">

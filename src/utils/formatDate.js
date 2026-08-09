@@ -5,7 +5,7 @@ export const formatDate = (date) => {
 
   return d.toLocaleDateString("en-GB", {
     day: "2-digit",
-    month: "2-digit",
+    month: "short",
     year: "2-digit",
   });
 };

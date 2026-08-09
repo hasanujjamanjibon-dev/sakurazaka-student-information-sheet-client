@@ -1,6 +1,6 @@
 export default function TableHead() {
   return (
-    <thead className="bg-[#26365c] text-white">
+    <thead className="bg-[#26365c] text-white sticky top-0 z-10">
       <tr>
         {/* Sl No. */}
         <th className="min-w-[75px] px-4 py-4 text-center font-semibold whitespace-nowrap">
