@@ -8,7 +8,6 @@ export default function ApplicationTable({ students, onDelete, loading }) {
       <div className="w-full overflow-auto">
         <table className="w-full min-w-275 table-auto">
           <TableHead />
-
           <TableBody
             students={students}
             onDelete={onDelete}
