@@ -359,7 +359,7 @@ const Application = () => {
             "Student information could not be loaded.",
         });
 
-        navigate("/dashboard");
+        navigate("/dashboard/sakura-office");
       } finally {
         setFetching(false);
       }
@@ -541,7 +541,7 @@ const Application = () => {
       });
 
       if (isEditMode) {
-        navigate("/dashboard");
+        navigate("/dashboard/sakura-office");
       }
     } catch (error) {
       console.error(error);
