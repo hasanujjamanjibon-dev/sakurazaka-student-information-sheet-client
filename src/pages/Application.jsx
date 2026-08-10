@@ -11,11 +11,10 @@ import FamilyInformation from "../components/FamilyInformation";
 import CurrentEducationalInformation from "../components/CurrentEducationalInformation";
 import EducationalInformation from "../components/EducationalInformation";
 import JapaneseLanguage from "../components/JapaneseLanguage";
-
+import { Save, LayoutDashboard } from "lucide-react";
 import { buildPayload } from "../utils/buildPayload";
 import { uploadImages } from "../utils/uploadImages";
 import { formatDate } from "../utils/formatDate";
-
 import { getStudent, updateStudent } from "../services/studentApi";
 import Footer from "../components/Footer";
 import toInputDate from "../utils/toInputDate";
@@ -625,15 +624,38 @@ const Application = () => {
         <Footer />
 
         <div className="fixed bottom-2 left-0 right-0 mt-8 text-center">
-          <button type="submit" className="btn btn-success" disabled={loading}>
-            {loading
-              ? isEditMode
-                ? "Updating..."
-                : "Submitting..."
-              : isEditMode
-                ? "Update Information"
-                : "Submit Information"}
-          </button>
+          {isEditMode ? (
+            <div className="flex items-center justify-center mt-8">
+              {/* Save Information */}
+              <button
+                type="submit"
+                disabled={loading}
+                className=" h-12 px-7 cursor-pointer rounded-l-xl bg-gradient-to-r from-[#7A2430] to-[#8F3445] text-white font-semibold flex items-center gap-2 shadow-[0_5px_15px_rgba(122,36,48,0.20)] hover:from-[#6D202B] hover:to-[#812D3D] hover:shadow-[0_7px_20px_rgba(122,36,48,0.28)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200 "
+              >
+                <Save size={18} strokeWidth={2} />
+
+                {loading ? "Saving..." : "Save"}
+              </button>
+
+              {/* Dashboard */}
+              <button
+                type="button"
+                onClick={() => navigate("/dashboard/sakura-office")}
+                className="h-12 px-7 rounded-r-xl cursor-pointer bg-gradient-to-r from-[#304A78] to-[#3E5F91] text-white font-semibold flex items-center gap-2 shadow-[0_5px_15px_rgba(48,74,120,0.18)] hover:from-[#294168] hover:to-[#35557F] hover:shadow-[0_7px_20px_rgba(48,74,120,0.25)] active:scale-[0.98] transition-all duration-200"
+              >
+                <LayoutDashboard size={18} strokeWidth={2} />
+                Dashboard
+              </button>
+            </div>
+          ) : (
+            <button
+              type="submit"
+              disabled={loading}
+              className="h-12 px-8 cursor-pointerrounded-xl bg-gradient-to-r from-[#7A2430] to-[#8F3445]  text-whitefont-semiboldshadow-[0_5px_15px_rgba(122,36,48,0.20)] hover:from-[#6D202B] hover:to-[#812D3D] hover:shadow-[0_7px_20px_rgba(122,36,48,0.28)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200"
+            >
+              {loading ? "Submitting..." : "Submit Information"}
+            </button>
+          )}
         </div>
       </form>
     </FormProvider>

@@ -25,8 +25,6 @@ export default function TableHead() {
         {/* DOB */}
         <th className="min-w-[140px] px-4 py-4 text-center font-semibold whitespace-nowrap">
           D.O.B.
-          <br />
-          (DD-MM-YY)
         </th>
 
         {/* Photo URL */}
