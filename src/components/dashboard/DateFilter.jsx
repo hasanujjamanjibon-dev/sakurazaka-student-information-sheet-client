@@ -49,9 +49,7 @@ export default function DateFilter({
         <button
           type="button"
           onClick={handleDateClick}
-          className={`h-11 min-w-[155px] px-4 rounded-xl border
-            flex items-center justify-between gap-3
-            font-medium transition-all duration-200
+          className={`h-11 min-w-[155px] cursor-pointer px-4 rounded-xl border flex items-center justify-between gap-3 font-medium transition-all duration-200
             ${
               selectedDate
                 ? "border-[#5B1C1C] bg-[#fff8f8] text-[#5B1C1C]"
@@ -82,17 +80,7 @@ export default function DateFilter({
         type="button"
         onClick={handleRefresh}
         disabled={refreshing}
-        className="group h-11 px-4 rounded-xl
-          bg-gradient-to-r from-[#5B1C1C] to-[#263D68]
-          text-white font-medium
-          shadow-[0_4px_15px_rgba(91,28,28,0.18)]
-          hover:shadow-[0_6px_20px_rgba(91,28,28,0.28)]
-          hover:-translate-y-[1px]
-          active:translate-y-0
-          disabled:opacity-60
-          disabled:cursor-not-allowed
-          transition-all duration-200
-          flex items-center gap-2.5"
+        className="group h-11 cursor-pointer px-4 rounded-xl bg-gradient-to-r from-[#5B1C1C] to-[#263D68] text-white font-medium shadow-[0_4px_15px_rgba(91,28,28,0.18)] hover:shadow-[0_6px_20px_rgba(91,28,28,0.28)] hover:-translate-y-[1px] active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200 flex items-center gap-2.5"
       >
         <RotateCw
           size={18}
