@@ -60,7 +60,6 @@ const Application = () => {
 
         const res = await getStudent(id);
 
-        console.log("Edit Student Response:", res.data);
 
         const student = res.data?.student || res.data;
 
@@ -347,7 +346,6 @@ const Application = () => {
 
         reset(formData);
 
-        console.log("Form Data:", formData);
       } catch (error) {
         console.error(error);
 

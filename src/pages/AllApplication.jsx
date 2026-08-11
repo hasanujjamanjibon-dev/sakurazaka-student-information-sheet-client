@@ -60,7 +60,6 @@ export default function AllApplication() {
   const loadStatistics = async () => {
     try {
       const res = await getStatistics();
-      console.log("Statistics Loaded:", res.data);
       setStatistics(res.data);
     } catch (err) {
       console.error("Statistics Error:", err);

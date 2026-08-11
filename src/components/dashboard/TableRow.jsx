@@ -4,7 +4,6 @@ import { formatDate } from "../../utils/formatDate";
 
 export default function TableRow({ student, onDelete }) {
   const info = student.studentInformation || {};
-  console.log("Student Info:", student);
   const sponsor = student.sponsorInformation || {};
 
   const studentName = info.studentName
@@ -21,9 +20,8 @@ export default function TableRow({ student, onDelete }) {
       <td className="px-4 py-4 whitespace-nowrap">
         <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
           <CalendarDays size={15} className="text-[#6A1B2E]" />
-
           <span className="text-sm font-medium text-gray-700">
-            {formatDate(student.createdAt)}
+            {formatDate(student.createdAt).replaceAll(" ", "-")}
           </span>
         </div>
       </td>
@@ -67,7 +65,7 @@ export default function TableRow({ student, onDelete }) {
               student.studentInformation?.studentDob
                 ? student.studentInformation.studentDob
                 : "-",
-            )}
+            ).replaceAll(" ", "-")}
           </span>
         </div>
       </td>

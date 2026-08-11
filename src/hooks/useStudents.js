@@ -11,13 +11,10 @@ export default function useStudents(page, search, limit, date) {
       setLoading(true);
 
       const res = await getStudents(page, limit, search, date);
-
-      console.log("API Response:", res.data);
-
       setStudents(res.data.students || []);
       setTotal(res.data.total || 0);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
