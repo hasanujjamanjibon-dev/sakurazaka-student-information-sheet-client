@@ -1,53 +1,78 @@
-// =========================================================
-// Convert any date format to YYYY-MM-DD
-// For input type="date"
-// =========================================================
 export default function toInputDate(date) {
   if (!date) return "";
 
+  // =========================================
+  // MongoDB Date / JavaScript Date
+  // =========================================
+
+  if (date instanceof Date) {
+    if (isNaN(date.getTime())) return "";
+
+    return date.toISOString().split("T")[0];
+  }
+
   const value = String(date).trim();
 
-  // Already YYYY-MM-DD
+  // =========================================
+  // YYYY-MM-DD
+  // =========================================
+
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     return value;
   }
 
-  // ISO date
+  // =========================================
+  // ISO String
+  // =========================================
+
   if (value.includes("T")) {
     return value.split("T")[0];
   }
 
+  // =========================================
   // DD/MM/YYYY
+  // =========================================
+
   if (/^\d{2}\/\d{2}\/\d{4}$/.test(value)) {
     const [day, month, year] = value.split("/");
 
     return `${year}-${month}-${day}`;
   }
 
+  // =========================================
   // DD-MM-YYYY
+  // =========================================
+
   if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
     const [day, month, year] = value.split("-");
 
     return `${year}-${month}-${day}`;
   }
 
+  // =========================================
   // DD/MM/YY
+  // =========================================
+
   if (/^\d{2}\/\d{2}\/\d{2}$/.test(value)) {
     const [day, month, year] = value.split("/");
 
     return `20${year}-${month}-${day}`;
   }
 
+  // =========================================
   // DD-MM-YY
+  // =========================================
+
   if (/^\d{2}-\d{2}-\d{2}$/.test(value)) {
     const [day, month, year] = value.split("-");
 
     return `20${year}-${month}-${day}`;
   }
 
-  // ==========================================
-  // Example: 26 Aug 2026
-  // ==========================================
+  // =========================================
+  // 26 Aug 2026
+  // =========================================
+
   const monthNames = {
     Jan: "01",
     Feb: "02",

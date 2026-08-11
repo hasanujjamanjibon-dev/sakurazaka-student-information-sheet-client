@@ -1,4 +1,3 @@
-// export default Application;
 import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,7 +13,6 @@ import JapaneseLanguage from "../components/JapaneseLanguage";
 import { Save, LayoutDashboard } from "lucide-react";
 import { buildPayload } from "../utils/buildPayload";
 import { uploadImages } from "../utils/uploadImages";
-import { formatDate } from "../utils/formatDate";
 import { getStudent, updateStudent } from "../services/studentApi";
 import Footer from "../components/Footer";
 import toInputDate from "../utils/toInputDate";
@@ -60,12 +58,11 @@ const Application = () => {
 
         const res = await getStudent(id);
 
-
         const student = res.data?.student || res.data;
 
         const info = student.studentInformation || {};
         const sponsor = student.sponsorInformation || {};
-
+        console.log("student DOB", toInputDate(info.studentDob));
         // =====================================================
         // FAMILY
         // =====================================================
@@ -157,7 +154,6 @@ const Application = () => {
         // =====================================================
         // FORM DATA
         // =====================================================
-
         const formData = {
           // =========================
           // Student
@@ -345,7 +341,6 @@ const Application = () => {
         // =====================================================
 
         reset(formData);
-
       } catch (error) {
         console.error(error);
 
@@ -493,20 +488,7 @@ const Application = () => {
 
       const payload = buildPayload(data);
 
-      // Student DOB
-      if (payload.studentInformation) {
-        payload.studentInformation.studentDob = formatDate(
-          payload.studentInformation.studentDob,
-        );
-      }
 
-      // Family DOB
-      if (Array.isArray(payload.familyInformation)) {
-        payload.familyInformation = payload.familyInformation.map((member) => ({
-          ...member,
-          dob: formatDate(member.dob),
-        }));
-      }
 
       setProgress(75);
       setProgressText(
