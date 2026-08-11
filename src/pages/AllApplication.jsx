@@ -13,6 +13,8 @@ export default function AllApplication() {
   // =========================
   // Filters
   // =========================
+  const [selectedStudent, setSelectedStudent] = useState(null);
+  const [openDelete, setOpenDelete] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedDate, setSelectedDate] = useState("");
 
@@ -49,8 +51,7 @@ export default function AllApplication() {
   // =========================
   // Delete
   // =========================
-  const [selectedStudent, setSelectedStudent] = useState(null);
-  const [openDelete, setOpenDelete] = useState(false);
+
   const [loadingDelete, setLoadingDelete] = useState(false);
 
   // =========================
@@ -59,7 +60,7 @@ export default function AllApplication() {
   const loadStatistics = async () => {
     try {
       const res = await getStatistics();
-
+      console.log("Statistics Loaded:", res.data);
       setStatistics(res.data);
     } catch (err) {
       console.error("Statistics Error:", err);
