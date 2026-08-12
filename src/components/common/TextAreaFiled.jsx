@@ -19,7 +19,7 @@ const TextAreaFiled = ({
         rows={rows}
         placeholder={placeholder}
         {...register(name)}
-        className={`textarea textarea-bordered outline-0 w-full resize-none ${className}`}
+        className={`textarea textarea-bordered capitalize outline-0 w-full resize-none ${className}`}
         {...props}
       />
     </div>

@@ -69,7 +69,7 @@ const JapaneseLanguage = () => {
           />
           <InputField
             label={`${item.name} এর রোল/রেজিস্ট্রেশন নং (যদি থাকে)`}
-            type="number"
+            type="text"
             className={item.className}
             name={`${item.name}RollNumber`}
             labelClassName={item.labelClassName}
