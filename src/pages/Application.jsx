@@ -488,8 +488,6 @@ const Application = () => {
 
       const payload = buildPayload(data);
 
-
-
       setProgress(75);
       setProgressText(
         isEditMode ? "Updating information..." : "Saving information...",
@@ -586,23 +584,23 @@ const Application = () => {
       )}
 
       <form
-        className="space-y-2 max-w-7xl mx-auto"
+        className="space-y-2 max-w-7xl mx-auto p-1"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
+        {" "}
+        <div className="w-full rounded-full border-[6px] border-[#000a5c] bg-[#420c03] p-3 shadow-[0_1px_2px_rgba(0,0,0,0.3)]">
+          <p className="text-center  font-semibold leading-8 text-white sm:text-[15px] md:text-2xl">
+            SAKURAZAKA STUDENT INFORMATION FORM <br /> (সাকুরাজাকা স্টুডেন্ট
+            ইনফরমেশন ফর্ম)
+          </p>
+        </div>
         <StudentInformation existingPhoto={existingStudentPhoto} />
-
         <SponsorInformation existingPhoto={existingSponsorPhoto} />
-
         <FamilyInformation />
-
         <EducationalInformation />
-
         <CurrentEducationalInformation />
-
         <JapaneseLanguage />
-
         <Footer />
-
         <div className="fixed bottom-2 left-0 right-0 mt-8 text-center">
           {isEditMode ? (
             <div className="flex items-center justify-center mt-8">
@@ -631,7 +629,7 @@ const Application = () => {
             <button
               type="submit"
               disabled={loading}
-              className="h-12 px-8 cursor-pointerrounded-xl bg-gradient-to-r from-[#7A2430] to-[#8F3445]  text-whitefont-semiboldshadow-[0_5px_15px_rgba(122,36,48,0.20)] hover:from-[#6D202B] hover:to-[#812D3D] hover:shadow-[0_7px_20px_rgba(122,36,48,0.28)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200"
+              className="h-12 px-8 cursor-pointer rounded-xl bg-gradient-to-r from-[#7A2430] to-[#8F3445]  text-white font-semibold shadow-[0_5px_15px_rgba(0, 113, 206, 0.2)] hover:from-[#6D202B] hover:to-[#812D3D] hover:shadow-[0_7px_20px_rgba(122,36,48,0.28)] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed transition-all duration-200"
             >
               {loading ? "Submitting..." : "Submit Information"}
             </button>
