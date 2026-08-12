@@ -1,3 +1,5 @@
+const safeToUpper = (str) => (str ? String(str).toUpperCase() : "");
+
 export const buildPayload = (data) => ({
   // =====================================================
   // STUDENT INFORMATION
@@ -6,7 +8,7 @@ export const buildPayload = (data) => ({
   studentInformation: {
     studentPhoto: data.studentPhoto,
 
-    studentName: data.studentName.toUpperCase(),
+    studentName: safeToUpper(data.studentName),
 
     studentPhone: data.studentPhone,
 
@@ -14,7 +16,7 @@ export const buildPayload = (data) => ({
 
     studentDob: data.studentDob,
 
-    studentPresentAddress: data.studentPresentAddress.toUpperCase(),
+    studentPresentAddress: safeToUpper(data.studentPresentAddress),
 
     studentFatherPhone: data.studentFatherPhone,
 
@@ -28,15 +30,15 @@ export const buildPayload = (data) => ({
   sponsorInformation: {
     sponsorPhoto: data.sponsorPhoto,
 
-    sponsorName: data.sponsorName.toUpperCase(),
+    sponsorName: safeToUpper(data.sponsorName),
 
-    sponsorFatherName: data.sponsorFatherName.toUpperCase(),
+    sponsorFatherName: safeToUpper(data.sponsorFatherName),
 
-    sponsorMotherName: data.sponsorMotherName.toUpperCase(),
+    sponsorMotherName: safeToUpper(data.sponsorMotherName),
 
-    sponsorBusinessName: data.sponsorBusinessName.toUpperCase(),
+    sponsorBusinessName: safeToUpper(data.sponsorBusinessName),
 
-    sponsorBusinessCategory: data.sponsorBusinessCategory.toUpperCase(),
+    sponsorBusinessCategory: safeToUpper(data.sponsorBusinessCategory),
 
     sponsorNidNumber: data.sponsorNidNumber,
   },
@@ -48,23 +50,23 @@ export const buildPayload = (data) => ({
   familyInformation: [
     {
       relation: "Father",
-      name: data.fatherName.toUpperCase(),
+      name: safeToUpper(data.fatherName),
       dob: data.fatherDob,
-      occupation: data.fatherOccupation.toUpperCase(),
+      occupation: safeToUpper(data.fatherOccupation),
     },
 
     {
       relation: "Mother",
-      name: data.motherName.toUpperCase(),
+      name: safeToUpper(data.motherName),
       dob: data.motherDob,
-      occupation: data.motherOccupation.toUpperCase(),
+      occupation: safeToUpper(data.motherOccupation),
     },
 
     {
-      relation: data.siblingRelationship.toUpperCase(),
-      name: data.siblingName.toUpperCase(),
+      relation: safeToUpper(data.siblingRelationship),
+      name: safeToUpper(data.siblingName),
       dob: data.siblingDob,
-      occupation: data.siblingOccupation.toUpperCase(),
+      occupation: safeToUpper(data.siblingOccupation),
     },
   ].filter((item) => item.name),
 
@@ -76,51 +78,51 @@ export const buildPayload = (data) => ({
     {
       level: "Primary",
 
-      schoolName: data.primarySchoolName.toUpperCase(),
+      schoolName: safeToUpper(data.primarySchoolName),
 
-      address: data.primarySchoolAddress.toUpperCase(),
+      address: safeToUpper(data.primarySchoolAddress),
 
-      passingYear: data.primaryPassingYear.toUpperCase(),
+      passingYear: safeToUpper(data.primaryPassingYear),
     },
 
     {
       level: "Secondary",
 
-      schoolName: data.secondarySchoolName.toUpperCase(),
+      schoolName: safeToUpper(data.secondarySchoolName),
 
-      address: data.secondarySchoolAddress.toUpperCase(),
+      address: safeToUpper(data.secondarySchoolAddress),
 
-      passingYear: data.secondaryPassingYear.toUpperCase(),
+      passingYear: safeToUpper(data.secondaryPassingYear),
     },
 
     {
       level: "Higher Secondary",
 
-      schoolName: data.higherSecondarySchoolName.toUpperCase(),
+      schoolName: safeToUpper(data.higherSecondarySchoolName),
 
-      address: data.higherSecondarySchoolAddress.toUpperCase(),
+      address: safeToUpper(data.higherSecondarySchoolAddress),
 
-      passingYear: data.higherSecondaryPassingYear.toUpperCase(),
+      passingYear: safeToUpper(data.higherSecondaryPassingYear),
     },
 
     {
       level: "Honours",
 
-      schoolName: data.honoursSchoolName.toUpperCase(),
+      schoolName: safeToUpper(data.honoursSchoolName),
 
-      address: data.honoursSchoolAddress.toUpperCase(),
+      address: safeToUpper(data.honoursSchoolAddress),
 
-      passingYear: data.honoursPassingYear.toUpperCase(),
+      passingYear: safeToUpper(data.honoursPassingYear),
     },
 
     {
       level: "Masters",
 
-      schoolName: data.mastersSchoolName.toUpperCase(),
+      schoolName: safeToUpper(data.mastersSchoolName),
 
-      address: data.mastersSchoolAddress.toUpperCase(),
+      address: safeToUpper(data.mastersSchoolAddress),
 
-      passingYear: data.mastersPassingYear.toUpperCase(),
+      passingYear: safeToUpper(data.mastersPassingYear),
     },
   ].filter((item) => item.schoolName),
 
@@ -131,17 +133,17 @@ export const buildPayload = (data) => ({
   currentEducation: {
     currentAdmissionStatus: data.currentAdmissionStatus,
 
-    universityName: data.currentUniversityName.toUpperCase(),
+    universityName: safeToUpper(data.currentUniversityName),
 
-    department: data.currentDepartment.toUpperCase(),
+    department: safeToUpper(data.currentDepartment),
 
-    course: data.currentCourse.toUpperCase(),
+    course: safeToUpper(data.currentCourse),
 
-    semester: data.currentSemester.toUpperCase(),
+    semester: safeToUpper(data.currentSemester),
 
-    registration: data.currentRegistration.toUpperCase(),
+    registration: safeToUpper(data.currentRegistration),
 
-    roll: data.currentRoll.toUpperCase(),
+    roll: safeToUpper(data.currentRoll),
   },
 
   // =====================================================
@@ -152,85 +154,85 @@ export const buildPayload = (data) => ({
     {
       exam: "JLPT",
 
-      level: data.JLPTLevel.toUpperCase(),
+      level: safeToUpper(data.JLPTLevel),
 
-      rollNumber: data.JLPTRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.JLPTRollNumber),
 
-      score: data.JLPTScore.toUpperCase(),
+      score: safeToUpper(data.JLPTScore),
 
-      examDate: data.JLPTExamDate.toUpperCase(),
+      examDate: safeToUpper(data.JLPTExamDate),
 
-      expectedExamDate: data.JLPTExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.JLPTExpectedExamDate),
     },
 
     {
       exam: "NAT",
 
-      level: data.NATLevel.toUpperCase(),
+      level: safeToUpper(data.NATLevel),
 
-      rollNumber: data.NATRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.NATRollNumber),
 
-      score: data.NATScore.toUpperCase(),
+      score: safeToUpper(data.NATScore),
 
-      examDate: data.NATExamDate.toUpperCase(),
+      examDate: safeToUpper(data.NATExamDate),
 
-      expectedExamDate: data.NATExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.NATExpectedExamDate),
     },
 
     {
       exam: "JPT",
 
-      level: data.JPTLevel.toUpperCase(),
+      level: safeToUpper(data.JPTLevel),
 
-      rollNumber: data.JPTRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.JPTRollNumber),
 
-      score: data.JPTScore.toUpperCase(),
+      score: safeToUpper(data.JPTScore),
 
-      examDate: data.JPTExamDate.toUpperCase(),
+      examDate: safeToUpper(data.JPTExamDate),
 
-      expectedExamDate: data.JPTExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.JPTExpectedExamDate),
     },
 
     {
       exam: "JLCT",
 
-      level: data.JLCTLevel.toUpperCase(),
+      level: safeToUpper(data.JLCTLevel),
 
-      rollNumber: data.JLCTRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.JLCTRollNumber),
 
-      score: data.JLCTScore.toUpperCase(),
+      score: safeToUpper(data.JLCTScore),
 
-      examDate: data.JLCTExamDate.toUpperCase(),
+      examDate: safeToUpper(data.JLCTExamDate),
 
-      expectedExamDate: data.JLCTExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.JLCTExpectedExamDate),
     },
 
     {
       exam: "Top_J",
 
-      level: data.Top_JLevel.toUpperCase(),
+      level: safeToUpper(data.Top_JLevel),
 
-      rollNumber: data.Top_JRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.Top_JRollNumber),
 
-      score: data.Top_JScore.toUpperCase(),
+      score: safeToUpper(data.Top_JScore),
 
-      examDate: data.Top_JExamDate.toUpperCase(),
+      examDate: safeToUpper(data.Top_JExamDate),
 
-      expectedExamDate: data.Top_JExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.Top_JExpectedExamDate),
     },
 
     {
       exam: "J_Test",
 
-      level: data.J_TestLevel.toUpperCase(),
+      level: safeToUpper(data.J_TestLevel),
 
-      rollNumber: data.J_TestRollNumber.toUpperCase(),
+      rollNumber: safeToUpper(data.J_TestRollNumber),
 
-      score: data.J_TestScore.toUpperCase(),
+      score: safeToUpper(data.J_TestScore),
 
-      examDate: data.J_TestExamDate.toUpperCase(),
+      examDate: safeToUpper(data.J_TestExamDate),
 
-      expectedExamDate: data.J_TestExpectedExamDate.toUpperCase(),
+      expectedExamDate: safeToUpper(data.J_TestExpectedExamDate),
     },
   ].filter(
     (item) =>
