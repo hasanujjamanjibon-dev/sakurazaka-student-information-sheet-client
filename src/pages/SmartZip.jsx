@@ -1,4 +1,3 @@
-import { uploadFiles, analyzeJob, compressJob } from "../Api/compressorApi";
 import React, { useMemo, useRef, useState } from "react";
 import {
   Archive,
@@ -8,8 +7,6 @@ import {
   ChevronDown,
   ChevronRight,
   CircleHelp,
-  Clock3,
-  CloudUpload,
   Download,
   FileArchive,
   FileImage,
@@ -21,26 +18,23 @@ import {
   HardDriveDownload,
   History,
   Info,
-  LayoutDashboard,
-  LockKeyhole,
   Menu,
   Moon,
-  MoreHorizontal,
   PanelLeftClose,
   PanelLeftOpen,
-  Play,
   Settings,
   ShieldCheck,
   Sparkles,
   Sun,
   Upload,
   X,
-  Zap,
 } from "lucide-react";
+
+import { uploadFiles, analyzeJob, compressJob } from "../Api/compressorApi";
+
 const API = import.meta.env.VITE_SMART_ZIP_Backend_URL;
 
 const navItems = [
-  //   { label: "Dashboard", icon: LayoutDashboard },
   { label: "Compress ZIP", icon: FileArchive },
   { label: "History", icon: History },
   { label: "Settings", icon: Settings },
@@ -56,37 +50,49 @@ function SmartZip() {
   const [file, setFile] = useState(null);
 
   // =========================
-  // REAL DATA STATES
+  // PROCESS STATES
   // =========================
+
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState("idle");
   const [compressionResult, setCompressionResult] = useState(null);
+
+  // =========================
+  // REAL DATA
+  // =========================
 
   const [folderTree, setFolderTree] = useState([]);
   const [totalFiles, setTotalFiles] = useState(0);
   const [totalFolders, setTotalFolders] = useState(0);
   const [totalSize, setTotalSize] = useState(0);
 
+  // =========================
+  // REFS
+  // =========================
+
   const inputRef = useRef(null);
   const folderRef = useRef(null);
 
   // =========================
-  // FILE SIZE
+  // ORIGINAL SIZE
   // =========================
-  const originalSize = file
-    ? formatBytes(file.size)
-    : totalSize
-      ? formatBytes(totalSize)
+
+  const originalSize = totalSize
+    ? formatBytes(totalSize)
+    : file
+      ? formatBytes(file.size)
       : "0 B";
 
   // =========================
   // FILE COUNT
   // =========================
+
   const fileCount = totalFiles;
 
   // =========================
-  // CHOOSE FILE
+  // CHOOSE ZIP FILE
   // =========================
+
   const chooseFile = () => {
     inputRef.current?.click();
   };
@@ -94,31 +100,45 @@ function SmartZip() {
   // =========================
   // CHOOSE FOLDER
   // =========================
+
   const chooseFolder = () => {
     folderRef.current?.click();
   };
 
   // =========================
+  // RESET DATA
+  // =========================
+
+  const resetData = () => {
+    setFolderTree([]);
+    setTotalFiles(0);
+    setTotalFolders(0);
+    setTotalSize(0);
+    setCompressionResult(null);
+    setProgress(0);
+  };
+
+  // =========================
   // HANDLE FILES
   // =========================
+
   const handleFiles = async (files) => {
     if (!files || files.length === 0) {
       return;
     }
 
+    const selectedFiles = Array.from(files);
+
     try {
       console.log("=================================");
-      console.log("SELECTED FILES:", files.length);
+      console.log("SELECTED FILES:", selectedFiles.length);
       console.log("=================================");
 
-      // Reset previous data
-      setFolderTree([]);
-      setTotalFiles(0);
-      setTotalFolders(0);
-      setTotalSize(0);
-      setCompressionResult(null);
+      // Reset previous result
+      resetData();
+
       // First selected file
-      setFile(files[0]);
+      setFile(selectedFiles[0]);
 
       // =========================
       // STEP 1: UPLOAD
@@ -129,21 +149,24 @@ function SmartZip() {
 
       console.log("Uploading files...");
 
-      const response = await uploadFiles(files, (percent) => {
+      const response = await uploadFiles(selectedFiles, (percent) => {
         console.log("Upload progress:", percent);
-        setProgress(percent);
+
+        // Upload = first 40% of total process
+        const overallProgress = Math.min(40, Math.round((percent / 100) * 40));
+
+        setProgress(overallProgress);
       });
 
       console.log("UPLOAD RESPONSE:", response);
-      console.log("UPLOAD DATA:", response.data);
+      console.log("UPLOAD DATA:", response?.data);
 
-      // Check upload response
-      if (!response.data?.success) {
-        throw new Error(response.data?.message || "File upload failed.");
+      if (!response?.data?.success) {
+        throw new Error(response?.data?.message || "File upload failed.");
       }
 
       // =========================
-      // STEP 2: GET JOB ID
+      // STEP 2: JOB ID
       // =========================
 
       const jobId = response.data.job_id;
@@ -159,20 +182,16 @@ function SmartZip() {
       // =========================
 
       setStatus("analyzing");
-      setProgress(100);
+      setProgress(45);
+
       console.log("Starting analysis for job:", jobId);
 
       const analyzeResponse = await analyzeJob(jobId);
 
       console.log("ANALYZE RESPONSE:", analyzeResponse);
+      console.log("ANALYZE DATA:", analyzeResponse?.data);
 
-      console.log("ANALYZE DATA:", analyzeResponse.data);
-
-      const result = analyzeResponse.data;
-
-      // =========================
-      // CHECK ANALYZE RESPONSE
-      // =========================
+      const result = analyzeResponse?.data;
 
       if (!result?.success) {
         throw new Error(
@@ -180,39 +199,38 @@ function SmartZip() {
         );
       }
 
-      // setStatus("complete");
       // =========================
-      // STEP 4: SAVE REAL DATA
+      // SAVE REAL ANALYSIS DATA
       // =========================
 
       console.log("REAL FOLDER TREE:", result.tree);
       console.log("REAL FILE COUNT:", result.files);
       console.log("REAL FOLDER COUNT:", result.folders);
-      console.log("REAL TOTAL SIZE:", result.total_size_mb, "MB");
+      console.log("REAL TOTAL SIZE:", result.total_size);
 
       setFolderTree(result.tree || []);
       setTotalFiles(result.files || 0);
       setTotalFolders(result.folders || 0);
       setTotalSize(result.total_size || 0);
 
+      setProgress(55);
+
       // =========================
-      // STEP 5: COMPRESS
+      // STEP 4: COMPRESS
       // =========================
 
       setStatus("compressing");
-      // Compression-এর জন্য progress আবার 0
-      setProgress(0);
 
       console.log("Starting compression for job:", jobId);
 
       const compressResponse = await compressJob(jobId);
 
       console.log("COMPRESS RESPONSE:", compressResponse);
-      console.log("COMPRESS DATA:", compressResponse.data);
 
-      const compressResult = compressResponse.data;
+      console.log("COMPRESS DATA:", compressResponse?.data);
 
-      // Check compression response
+      const compressResult = compressResponse?.data;
+
       if (!compressResult?.success) {
         throw new Error(
           compressResult?.message ||
@@ -221,8 +239,11 @@ function SmartZip() {
         );
       }
 
+      // Compression completed
+      setProgress(95);
+
       // =========================
-      // STEP 6: SAVE COMPRESSION DATA
+      // SAVE COMPRESSION RESULT
       // =========================
 
       console.log("Original size:", compressResult.original_size_mb, "MB");
@@ -232,10 +253,6 @@ function SmartZip() {
       console.log("Saved:", compressResult.saved_percentage, "%");
 
       console.log("Under 25 MB:", compressResult.under_25mb);
-
-      // =========================
-      // STEP 7: SAVE RESULT
-      // =========================
 
       setCompressionResult({
         originalSize: compressResult.original_size,
@@ -252,15 +269,14 @@ function SmartZip() {
       });
 
       // =========================
-      // STEP 8: FINALIZING
+      // STEP 5: FINALIZING
       // =========================
 
       setStatus("finalizing");
-
       setProgress(100);
 
       // =========================
-      // STEP 9: COMPLETE
+      // STEP 6: COMPLETE
       // =========================
 
       setStatus("complete");
@@ -268,26 +284,19 @@ function SmartZip() {
       console.log("=================================");
       console.log("PROCESS COMPLETED SUCCESSFULLY");
       console.log("=================================");
-      console.log("=================================");
-      console.log("PROCESS COMPLETED SUCCESSFULLY");
-      console.log("=================================");
     } catch (error) {
-      console.error("UPLOAD / ANALYZE ERROR:", error);
-
-      console.error("ERROR RESPONSE:", error.response);
-
-      console.error("ERROR REQUEST:", error.request);
-
-      console.error("ERROR MESSAGE:", error.message);
+      console.error("PROCESS ERROR:", error);
+      console.error("ERROR RESPONSE:", error?.response);
+      console.error("ERROR REQUEST:", error?.request);
+      console.error("ERROR MESSAGE:", error?.message);
 
       setStatus("error");
-
       setProgress(0);
 
       const message =
-        error.response?.data?.detail ||
-        error.response?.data?.message ||
-        error.message ||
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        error?.message ||
         "File processing failed.";
 
       alert(message);
@@ -295,13 +304,24 @@ function SmartZip() {
   };
 
   // =========================
-  // FILE INPUT
+  // ZIP INPUT CHANGE
   // =========================
 
   const onInputChange = (e) => {
     handleFiles(e.target.files);
 
-    // Same file আবার select করার সুযোগ
+    // Allow selecting same file again
+    e.target.value = "";
+  };
+
+  // =========================
+  // FOLDER INPUT CHANGE
+  // =========================
+
+  const onFolderChange = (e) => {
+    handleFiles(e.target.files);
+
+    // Allow selecting same folder again
     e.target.value = "";
   };
 
@@ -314,7 +334,11 @@ function SmartZip() {
 
     setDragging(false);
 
-    handleFiles(e.dataTransfer.files);
+    const files = e.dataTransfer.files;
+
+    if (files && files.length > 0) {
+      handleFiles(files);
+    }
   };
 
   // =========================
@@ -322,23 +346,17 @@ function SmartZip() {
   // =========================
 
   const stateLabel = useMemo(() => {
-    if (status === "complete") {
-      return "Complete";
-    }
+    const labels = {
+      idle: "Waiting",
+      uploading: "Uploading",
+      analyzing: "Analyzing",
+      compressing: "Compressing",
+      finalizing: "Finalizing",
+      complete: "Complete",
+      error: "Error",
+    };
 
-    if (status === "uploading") {
-      return "Uploading";
-    }
-
-    if (status === "analyzing") {
-      return "Analyzing";
-    }
-
-    if (status === "error") {
-      return "Error";
-    }
-
-    return "Waiting";
+    return labels[status] || "Waiting";
   }, [status]);
 
   return (
@@ -367,11 +385,7 @@ function SmartZip() {
               MAIN
           ========================= */}
 
-          <main
-            className={`min-w-0 flex-1 transition-[margin] duration-300 ${
-              collapsed ? "lg:ml-0" : ""
-            }`}
-          >
+          <main className="min-w-0 flex-1">
             {/* =========================
                 HEADER
             ========================= */}
@@ -429,7 +443,9 @@ function SmartZip() {
             ========================= */}
 
             <div className="mx-auto max-w-[1510px] space-y-4 p-4 sm:p-6 lg:p-8">
-              {/* UPLOAD */}
+              {/* =========================
+                  UPLOAD CARD
+              ========================= */}
 
               <UploadCard
                 dragging={dragging}
@@ -439,7 +455,9 @@ function SmartZip() {
                 chooseFolder={chooseFolder}
               />
 
-              {/* FILE INPUT */}
+              {/* =========================
+                  ZIP INPUT
+              ========================= */}
 
               <input
                 ref={inputRef}
@@ -447,6 +465,20 @@ function SmartZip() {
                 className="hidden"
                 accept=".zip"
                 onChange={onInputChange}
+              />
+
+              {/* =========================
+                  FOLDER INPUT
+              ========================= */}
+
+              <input
+                ref={folderRef}
+                type="file"
+                className="hidden"
+                multiple
+                webkitdirectory=""
+                directory=""
+                onChange={onFolderChange}
               />
 
               {/* =========================
@@ -483,7 +515,9 @@ function SmartZip() {
           </main>
         </div>
 
-        {/* SIDEBAR TOGGLE */}
+        {/* =========================
+            SIDEBAR TOGGLE
+        ========================= */}
 
         <button
           onClick={() => setCollapsed((v) => !v)}
@@ -499,6 +533,11 @@ function SmartZip() {
     </div>
   );
 }
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
 function Sidebar({ collapsed, mobileOpen, closeMobile }) {
   return (
     <aside
@@ -511,15 +550,18 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
           <div className="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
             <Archive size={24} strokeWidth={2.4} />
           </div>
+
           <div>
             <div className="text-[19px] font-extrabold leading-5 tracking-tight">
               Smart ZIP
             </div>
+
             <div className="text-[19px] font-extrabold leading-5 tracking-tight">
               Compressor
             </div>
           </div>
         </div>
+
         <button onClick={closeMobile} className="lg:hidden">
           <X size={20} />
         </button>
@@ -529,6 +571,7 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
         {navItems.map((item, index) => {
           const Icon = item.icon;
           const active = index === 0;
+
           return (
             <button
               key={item.label}
@@ -539,6 +582,7 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
               }`}
             >
               <Icon size={19} strokeWidth={active ? 2.3 : 1.9} />
+
               {item.label}
             </button>
           );
@@ -549,6 +593,7 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
         <div className="mb-4 text-[11px] font-bold uppercase tracking-wider text-blue-600">
           How it works
         </div>
+
         <div className="space-y-3.5">
           {[
             "Upload ZIP or Folder",
@@ -564,6 +609,7 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
               <span className="grid h-4 w-4 shrink-0 place-items-center rounded-full bg-blue-600 text-white">
                 <Check size={10} strokeWidth={3} />
               </span>
+
               {text}
             </div>
           ))}
@@ -576,6 +622,7 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
             <ShieldCheck size={18} />
             Your files are safe
           </div>
+
           <p className="mt-2 text-xs leading-5 text-slate-500 dark:text-slate-400">
             Files are processed securely during compression.
           </p>
@@ -584,6 +631,10 @@ function Sidebar({ collapsed, mobileOpen, closeMobile }) {
     </aside>
   );
 }
+
+/* =========================================================
+   UPLOAD CARD
+========================================================= */
 
 function UploadCard({
   dragging,
@@ -612,6 +663,7 @@ function UploadCard({
           <div className="grid h-[66px] w-[66px] place-items-center rounded-xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white shadow-lg shadow-blue-500/20">
             <Archive size={34} strokeWidth={1.8} />
           </div>
+
           <span className="absolute -bottom-2 -right-3 grid h-8 w-8 place-items-center rounded-full bg-blue-600 text-white shadow-md">
             <ArrowUp size={18} />
           </span>
@@ -620,12 +672,14 @@ function UploadCard({
         <h2 className="text-[17px] font-bold text-slate-900 dark:text-white sm:text-lg">
           Drag & drop your ZIP file or folder here
         </h2>
+
         <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           or click to browse
         </p>
 
         <div className="mt-4 flex flex-wrap justify-center gap-2">
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               chooseFile();
@@ -635,7 +689,9 @@ function UploadCard({
             <Folder size={18} />
             Choose File
           </button>
+
           <button
+            type="button"
             onClick={(e) => {
               e.stopPropagation();
               chooseFolder();
@@ -648,26 +704,26 @@ function UploadCard({
         </div>
 
         <div className="mt-4 text-xs text-slate-500">
-          Supports: ZIP or any folder <span className="mx-2">•</span> Maximum
-          file size: 2GB
+          Supports: ZIP or any folder
+          <span className="mx-2">•</span>
+          Maximum file size: 2GB
         </div>
       </div>
     </section>
   );
 }
 
+/* =========================================================
+   PROGRESS CARD
+========================================================= */
+
 function ProgressCard({
   progress,
   status,
   originalSize,
   fileCount,
-  stateLabel,
   compressionResult,
 }) {
-  // =========================
-  // STEP STATUS
-  // =========================
-
   const steps = [
     {
       label: "Uploading",
@@ -687,10 +743,6 @@ function ProgressCard({
     },
   ];
 
-  // =========================
-  // STEP INDEX
-  // =========================
-
   const statusIndex = {
     idle: -1,
     uploading: 0,
@@ -705,33 +757,23 @@ function ProgressCard({
 
   return (
     <section className="rounded-2xl border border-slate-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-[#101a2c] sm:p-6">
-      {/* =========================
-          TITLE
-      ========================= */}
+      {/* TITLE */}
 
       <div className="flex items-center gap-2 text-[15px] font-bold">
         <Gauge size={19} className="text-blue-600" />
         Compression Progress
       </div>
 
-      {/* =========================
-          STEPS
-      ========================= */}
+      {/* STEPS */}
 
       <div className="mt-6 grid grid-cols-4">
         {steps.map((step, index) => {
-          // Completed
           const completed = currentStep > index || status === "complete";
 
-          // Current
           const current = currentStep === index;
 
           return (
             <div key={step.label} className="relative text-center">
-              {/* =========================
-                  CONNECTING LINE
-              ========================= */}
-
               {index < steps.length - 1 && (
                 <span
                   className={`absolute left-1/2 top-3.5 h-px w-full ${
@@ -742,43 +784,25 @@ function ProgressCard({
                 />
               )}
 
-              {/* =========================
-                  STEP CIRCLE
-              ========================= */}
-
               <div className="relative z-10 mx-auto grid h-7 w-7 place-items-center rounded-full bg-white dark:bg-[#101a2c]">
-                {/* COMPLETED */}
-
                 {completed ? (
                   <span className="grid h-6 w-6 place-items-center rounded-full bg-emerald-500 text-white">
                     <Check size={13} strokeWidth={3} />
                   </span>
                 ) : current ? (
-                  /* CURRENT */
-
-                  <span className="grid h-7 w-7 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-md shadow-blue-500/20">
+                  <span className="grid h-7 w-7 place-items-center rounded-full bg-blue-600 text-xs font-bold text-white shadow-md">
                     {index + 1}
                   </span>
                 ) : (
-                  /* PENDING */
-
                   <span className="grid h-7 w-7 place-items-center rounded-full border-2 border-slate-300 bg-white text-xs font-semibold text-slate-400 dark:border-slate-600 dark:bg-slate-900">
                     {index + 1}
                   </span>
                 )}
               </div>
 
-              {/* =========================
-                  STEP NAME
-              ========================= */}
-
               <div className="mt-2 text-[12px] font-medium text-slate-700 dark:text-slate-300">
                 {step.label}
               </div>
-
-              {/* =========================
-                  STEP STATUS TEXT
-              ========================= */}
 
               <div className="mt-0.5 text-[11px] text-slate-400">
                 {completed ? "Completed" : current ? "In Progress" : "Pending"}
@@ -788,9 +812,7 @@ function ProgressCard({
         })}
       </div>
 
-      {/* =========================
-          PROGRESS TEXT
-      ========================= */}
+      {/* PROGRESS TEXT */}
 
       <div className="mt-7 flex items-center justify-between text-sm font-bold">
         <span>
@@ -812,9 +834,7 @@ function ProgressCard({
         <span>{progress}%</span>
       </div>
 
-      {/* =========================
-          PROGRESS BAR
-      ========================= */}
+      {/* PROGRESS BAR */}
 
       <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-100 dark:bg-slate-800">
         <div
@@ -825,9 +845,7 @@ function ProgressCard({
         />
       </div>
 
-      {/* =========================
-          STATISTICS
-      ========================= */}
+      {/* STATISTICS */}
 
       <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4">
         <Stat
@@ -836,16 +854,6 @@ function ProgressCard({
           value={originalSize}
         />
 
-        {/* <Stat
-          icon={<HardDriveDownload size={18} />}
-          label="Compressed"
-          value={
-            compressionResult
-              ? `${compressionResult.compressedSizeMb} MB`
-              : "--"
-          }
-          valueClass="text-emerald-600"
-        /> */}
         <Stat
           icon={<HardDriveDownload size={18} />}
           label="Compressed"
@@ -856,6 +864,7 @@ function ProgressCard({
           }
           valueClass="text-emerald-600"
         />
+
         <Stat
           icon={<Gauge size={18} />}
           label="Saved"
@@ -873,9 +882,7 @@ function ProgressCard({
         />
       </div>
 
-      {/* =========================
-          INFORMATION
-      ========================= */}
+      {/* INFORMATION */}
 
       <div className="mt-4 flex items-start gap-2 rounded-xl border border-blue-100 bg-blue-50/70 px-3 py-3 text-xs leading-5 text-blue-700 dark:border-blue-900 dark:bg-blue-950/20 dark:text-blue-300">
         <Info size={16} className="mt-0.5 shrink-0" />
@@ -906,6 +913,10 @@ function ProgressCard({
   );
 }
 
+/* =========================================================
+   STAT
+========================================================= */
+
 function Stat({ icon, label, value, valueClass = "text-blue-600" }) {
   return (
     <div className="rounded-xl border border-slate-100 bg-slate-50/60 p-3 dark:border-slate-800 dark:bg-slate-900/50">
@@ -913,20 +924,20 @@ function Stat({ icon, label, value, valueClass = "text-blue-600" }) {
         {icon}
         <span className="truncate text-[10px] font-medium">{label}</span>
       </div>
+
       <div className={`mt-1 text-sm font-extrabold ${valueClass}`}>{value}</div>
     </div>
   );
 }
 
-/* -------------------------------
----- FolderTreeCard --------
--------------------------------------*/
+/* =========================================================
+   FOLDER TREE
+========================================================= */
+
 function FolderTreeCard({ tree = [], fileCount = 0, folderCount = 0 }) {
   return (
-    <section className="max-h-[410px] overflow-hidden rounded-2xl  border border-slate-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-[#101a2c] sm:p-6">
-      {/* =========================
-          HEADER
-      ========================= */}
+    <section className="max-h-[410px] overflow-hidden rounded-2xl border border-slate-100 bg-white p-5 shadow-soft dark:border-slate-800 dark:bg-[#101a2c] sm:p-6">
+      {/* HEADER */}
 
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-[15px] font-bold">
@@ -935,14 +946,12 @@ function FolderTreeCard({ tree = [], fileCount = 0, folderCount = 0 }) {
           <span className="text-xs font-normal text-slate-400">(Preview)</span>
         </div>
 
-        <span className="rounded-lg h-fit bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+        <span className="h-fit rounded-lg bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
           {fileCount.toLocaleString()} files
         </span>
       </div>
 
-      {/* =========================
-          TREE
-      ========================= */}
+      {/* TREE */}
 
       <div className="mt-5 max-h-[350px] overflow-auto pb-4">
         {tree.length > 0 ? (
@@ -950,7 +959,7 @@ function FolderTreeCard({ tree = [], fileCount = 0, folderCount = 0 }) {
             <TreeNode key={`${node.name}-${index}`} node={node} level={0} />
           ))
         ) : (
-          <div className="flex max-h-[250px]  items-center justify-center text-sm text-slate-400">
+          <div className="flex max-h-[250px] items-center justify-center text-sm text-slate-400">
             {fileCount === 0
               ? "Upload a ZIP or folder to see the structure."
               : "Loading folder structure..."}
@@ -958,9 +967,7 @@ function FolderTreeCard({ tree = [], fileCount = 0, folderCount = 0 }) {
         )}
       </div>
 
-      {/* =========================
-          FOOTER STATS
-      ========================= */}
+      {/* FOOTER */}
 
       {fileCount > 0 && (
         <div className="mt-4 flex items-center justify-between border-t border-slate-100 pt-3 text-xs text-slate-500 dark:border-slate-800">
@@ -983,6 +990,10 @@ function FolderTreeCard({ tree = [], fileCount = 0, folderCount = 0 }) {
   );
 }
 
+/* =========================================================
+   TREE NODE
+========================================================= */
+
 function TreeNode({ node, level }) {
   const [open, setOpen] = useState(node.open ?? true);
 
@@ -996,12 +1007,11 @@ function TreeNode({ node, level }) {
           paddingLeft: `${level * 24 + 4}px`,
         }}
       >
-        {/* =========================
-            ARROW
-        ========================= */}
+        {/* ARROW */}
 
         {hasChildren ? (
           <button
+            type="button"
             onClick={() => setOpen((v) => !v)}
             className="grid h-4 w-4 place-items-center text-slate-400"
           >
@@ -1011,22 +1021,16 @@ function TreeNode({ node, level }) {
           <span className="w-4" />
         )}
 
-        {/* =========================
-            ICON
-        ========================= */}
+        {/* ICON */}
 
         <TreeIcon type={node.type} name={node.name} />
 
-        {/* =========================
-            NAME
-        ========================= */}
+        {/* NAME */}
 
         <span className="text-slate-700 dark:text-slate-300">{node.name}</span>
       </div>
 
-      {/* =========================
-          CHILDREN
-      ========================= */}
+      {/* CHILDREN */}
 
       {open &&
         node.children?.map((child, index) => (
@@ -1040,64 +1044,107 @@ function TreeNode({ node, level }) {
   );
 }
 
-function TreeIcon({ type, name = "" }) {
-  // =========================
-  // FOLDER
-  // =========================
+/* =========================================================
+   TREE ICON
+========================================================= */
 
+function TreeIcon({ type, name = "" }) {
   if (type === "folder") {
     return <Folder size={17} className="fill-amber-100 text-amber-500" />;
   }
 
-  // =========================
-  // FILE EXTENSION
-  // =========================
-
   const extension = name.split(".").pop().toLowerCase();
 
-  // Image
-  if (["jpg", "jpeg", "png", "gif", "webp", "bmp"].includes(extension)) {
+  if (["jpg", "jpeg", "png", "gif", "webp", "bmp", "svg"].includes(extension)) {
     return <FileImage size={17} className="text-emerald-500" />;
   }
 
-  // Excel / Spreadsheet
   if (["xlsx", "xls", "csv"].includes(extension)) {
     return <FileSpreadsheet size={17} className="text-emerald-600" />;
   }
 
-  // ZIP
   if (["zip", "rar", "7z"].includes(extension)) {
     return <FileArchive size={17} className="text-blue-500" />;
   }
 
-  // PDF / Other documents
   return <FileText size={17} className="text-red-500" />;
 }
+
+/* =========================================================
+   BOTTOM RESULT
+========================================================= */
 
 function BottomResult({ status, progress, compressionResult }) {
   const complete = status === "complete";
 
+  const downloadFile = () => {
+    if (!compressionResult?.downloadUrl) {
+      return;
+    }
+
+    const downloadUrl = compressionResult.downloadUrl;
+
+    const finalUrl = downloadUrl.startsWith("http")
+      ? downloadUrl
+      : `${API}${downloadUrl}`;
+
+    window.location.href = finalUrl;
+  };
+
   return (
     <section className="grid gap-3 rounded-2xl border border-slate-100 bg-white p-4 shadow-soft dark:border-slate-800 dark:bg-[#101a2c] sm:grid-cols-[1.25fr_0.75fr_0.75fr_1.1fr] sm:p-5">
+      {/* STATUS */}
+
       <div
-        className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${complete ? "border-emerald-100 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20" : "border-emerald-100 bg-emerald-50/40 dark:border-emerald-900 dark:bg-emerald-950/10"}`}
+        className={`flex items-center gap-3 rounded-xl border px-4 py-3 ${
+          complete
+            ? "border-emerald-100 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20"
+            : "border-blue-100 bg-blue-50/40 dark:border-blue-900 dark:bg-blue-950/10"
+        }`}
       >
-        <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-emerald-500 text-white">
-          <Check size={20} strokeWidth={3} />
+        <span
+          className={`grid h-10 w-10 shrink-0 place-items-center rounded-full text-white ${
+            complete ? "bg-emerald-500" : "bg-blue-500"
+          }`}
+        >
+          {complete ? (
+            <Check size={20} strokeWidth={3} />
+          ) : (
+            <Upload size={18} />
+          )}
         </span>
+
         <div>
-          <div className="text-sm font-bold text-emerald-600">
-            {complete ? "Compression Complete!" : "Almost Done!"}
+          <div
+            className={`text-sm font-bold ${
+              complete ? "text-emerald-600" : "text-blue-600"
+            }`}
+          >
+            {complete
+              ? "Compression Complete!"
+              : status === "idle"
+                ? "Ready to Process"
+                : status === "error"
+                  ? "Processing Failed"
+                  : "Processing..."}
           </div>
+
           <div className="text-xs text-slate-500">
             {complete
               ? "Your optimized ZIP is ready."
-              : "Your compressed ZIP will be ready shortly."}
+              : status === "error"
+                ? "Please try again."
+                : "Your file is being processed."}
           </div>
         </div>
       </div>
 
+      {/* TARGET */}
+
       <ResultMetric label="Target Size" value="≤ 25 MB" accent="orange" />
+
+      {/* COMPRESSED */}
+
       <ResultMetric
         label="Compressed Size"
         value={
@@ -1106,22 +1153,23 @@ function BottomResult({ status, progress, compressionResult }) {
         accent="green"
       />
 
-      <button
-        disabled={!complete || !compressionResult?.downloadUrl}
-        onClick={() => {
-          if (!compressionResult?.downloadUrl) return;
+      {/* DOWNLOAD */}
 
-          window.location.href = `${API}${compressionResult.downloadUrl}`;
-        }}
+      <button
+        type="button"
+        disabled={!complete || !compressionResult?.downloadUrl}
+        onClick={downloadFile}
         className={`flex min-h-[70px] items-center justify-center gap-2 rounded-xl px-5 text-sm font-bold text-white transition ${
-          complete
+          complete && compressionResult?.downloadUrl
             ? "bg-blue-600 shadow-lg shadow-blue-600/20 hover:bg-blue-700"
             : "cursor-not-allowed bg-blue-400"
         }`}
       >
         <Download size={19} />
+
         <span>
           <span className="block">Download ZIP</span>
+
           <span className="block text-[10px] font-medium opacity-80">
             {complete ? "Ready to download" : `Enabled at 100% (${progress}%)`}
           </span>
@@ -1131,17 +1179,37 @@ function BottomResult({ status, progress, compressionResult }) {
   );
 }
 
+/* =========================================================
+   RESULT METRIC
+========================================================= */
+
 function ResultMetric({ label, value, accent }) {
-  const cls = accent === "orange" ? "text-orange-500" : "text-emerald-600";
+  const isOrange = accent === "orange";
+
   return (
     <div
-      className={`flex min-h-[70px] flex-col items-center justify-center rounded-xl border ${accent === "orange" ? "border-orange-100 bg-orange-50/50 dark:border-orange-900/40 dark:bg-orange-950/10" : "border-emerald-100 bg-emerald-50/40 dark:border-emerald-900/40 dark:bg-emerald-950/10"}`}
+      className={`flex min-h-[70px] flex-col items-center justify-center rounded-xl border ${
+        isOrange
+          ? "border-orange-100 bg-orange-50/50 dark:border-orange-900/40 dark:bg-orange-950/10"
+          : "border-emerald-100 bg-emerald-50/40 dark:border-emerald-900/40 dark:bg-emerald-950/10"
+      }`}
     >
       <span className="text-[11px] font-medium text-slate-500">{label}</span>
-      <span className={`mt-1 text-lg font-extrabold ${cls}`}>{value}</span>
+
+      <span
+        className={`mt-1 text-lg font-extrabold ${
+          isOrange ? "text-orange-500" : "text-emerald-600"
+        }`}
+      >
+        {value}
+      </span>
     </div>
   );
 }
+
+/* =========================================================
+   FORMAT BYTES
+========================================================= */
 
 function formatBytes(bytes) {
   if (!bytes || bytes <= 0) {
