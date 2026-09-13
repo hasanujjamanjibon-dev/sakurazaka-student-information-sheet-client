@@ -21,9 +21,9 @@ const CurrentEducationalInformation = () => {
     },
   ];
   return (
-    <section className="w-full rounded-xl border border-violet-800 bg-white shadow-sm overflow-hidden ">
+    <section className="w-full rounded-xl border border-violet-800 bg-white shadow-sm overflow-hidden">
       {/* Header */}
-      <div className="bg-violet-800 px-4 py-3">
+      <div className="bg-violet-800 px-4 py-3 ">
         <h2 className="text-white font-bold text-sm sm:text-base md:text-lg">
           ৫. বর্তমান পড়াশুনার ইনফরমেশন{" "}
           <span className="font-semibold">(Educational Information)</span>

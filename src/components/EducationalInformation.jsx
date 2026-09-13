@@ -1,4 +1,3 @@
-import React from "react";
 import InputField from "./common/InputField";
 import TextAreaFiled from "./common/TextAreaFiled";
 

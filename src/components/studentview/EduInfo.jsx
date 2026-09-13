@@ -1,0 +1,155 @@
+import { AlertTriangle } from "lucide-react";
+
+export default function EduInfo() {
+  return (
+    <section>
+      {/* =====================================================
+          MAIN TABLE WRAPPER (EDUCATIONAL INFORMATION)
+      ===================================================== */}
+      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#c01823]  rounded-[10px] bg-white box-border">
+        <table className="print-table-fix w-full min-w-[950px] border-collapse table-fixed text-left">
+          {/* COLUMN WIDTH DEFINITIONS */}
+          <colgroup>
+            <col className="w-[23%]" />
+            <col className="w-[37%]" />
+            <col className="w-[30%]" />
+            <col className="w-[10%]" />
+          </colgroup>
+
+          {/* ===================================================
+              SECTION HEADER
+          =================================================== */}
+          <thead>
+            <tr className="border-b-[3px] border-[#c01823]">
+              <th
+                colSpan={2}
+                className="bg-[#c01823] text-white p-3 align-middle border-r-[3px] border-[#c01823] whitespace-nowrap"
+              >
+                <div className="flex items-center gap-2 font-extrabold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
+                  <span className="font-black">৪.</span>
+                  <span>পড়াশুনার তথ্য</span>
+                  <span className="font-[Arial,Helvetica,sans-serif] text-[0.85em]">
+                    (EDUCATIONAL INFORMATION)
+                  </span>
+                </div>
+              </th>
+              <th
+                colSpan={2}
+                className="p-3 align-middle bg-white text-center whitespace-nowrap"
+              >
+                <div className="flex items-center justify-center gap-1.5 text-[14px] md:text-[16px] font-medium text-[#c01823] leading-tight print:text-[11px]">
+                  <AlertTriangle
+                    className="w-5 h-5 shrink-0 text-[#c01823] print:w-4 print:h-4"
+                    strokeWidth={3}
+                  />
+                  <span>বিঃদ্রঃ ইংরেজিতে অবশ্যই পূরণ করতে হবে ।</span>
+                </div>
+              </th>
+            </tr>
+
+            {/* TABLE COLUMN TITLES */}
+            <tr className="border-b-[3px] border-[#c01823] bg-[#fde8e8] text-[#090909] font-bold text-[15px] lg:text-[17px]">
+              <th className="p-2.5 border-r-[3px] border-[#c01823] text-center whitespace-nowrap">
+                শিক্ষার ধাপ
+              </th>
+              <th className="p-2.5 border-r-[3px] border-[#c01823] text-center whitespace-nowrap">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম
+              </th>
+              <th className="p-2.5 border-r-[3px] border-[#c01823] text-center whitespace-nowrap">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা
+              </th>
+              <th className="p-2.5 text-center whitespace-nowrap">পাশের সন</th>
+            </tr>
+          </thead>
+
+          {/* ===================================================
+              TABLE BODY
+          =================================================== */}
+          <tbody className="divide-y-[3px] divide-[#c01823]">
+            {/* ROW 1: PRIMARY */}
+            <tr>
+              <td className="p-2.5 font-extrabold text-[#090909] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap font-[Arial,sans-serif]">
+                PRIMARY <span className="text-[#f22914]">*</span>
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap">
+                বছর
+              </td>
+            </tr>
+
+            {/* ROW 2: SSC/DAKHIL */}
+            <tr>
+              <td className="p-2.5 font-extrabold text-[#090909] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap font-[Arial,sans-serif]">
+                SSC/DAKHIL <span className="text-[#f22914]">*</span>
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap">
+                বছর
+              </td>
+            </tr>
+
+            {/* ROW 3: HSC/ALIM/DIPLOMA */}
+            <tr>
+              <td className="p-2.5 font-extrabold text-[#090909] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap font-[Arial,sans-serif]">
+                HSC/ALIM/DIPLOMA <span className="text-[#f22914]">*</span>
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap">
+                বছর
+              </td>
+            </tr>
+
+            {/* ROW 4: HONOUR'S/FAZIL */}
+            <tr>
+              <td className="p-2.5 font-extrabold text-[#090909] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap">
+                <span className="font-[Arial,sans-serif]">HONOUR’S/FAZIL</span>{" "}
+                (যদি থাকে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap">
+                বছর
+              </td>
+            </tr>
+
+            {/* ROW 5: MASTER'S/KAMIL */}
+            <tr>
+              <td className="p-2.5 font-extrabold text-[#090909] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap">
+                <span className="font-[Arial,sans-serif]">MASTER’S/KAMIL</span>
+                (যদি থাকে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#c01823] whitespace-nowrap overflow-hidden text-ellipsis">
+                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা (ইংরেজিতে)
+              </td>
+              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap">
+                বছর
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  );
+}

@@ -59,23 +59,3 @@ table {
   border-collapse: collapse;
 }
 
-@page {
-  size: A4 portrait;
-  margin: 18mm;
-}
-
-@media print {
-  body {
-    background: #fff;
-  }
-  .print\:shadow-none {
-    box-shadow: none !important;
-  }
-  .print\:border-0 {
-    border: 0 !important;
-  }
-  .break-inside-avoid {
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-}

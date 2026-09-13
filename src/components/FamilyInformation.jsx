@@ -1,4 +1,3 @@
-import React from "react";
 import InputField from "./common/InputField";
 import YesNoField from "./common/YesNoField";
 import { useFormContext } from "react-hook-form";
