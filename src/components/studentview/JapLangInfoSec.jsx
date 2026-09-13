@@ -1,12 +1,12 @@
-import React from "react";
+function JapLangInfoSec({ data }) {
+  console.log(data);
 
-function JapLangInfoSec() {
   return (
     <section>
       {/* =====================================================
           MAIN TABLE WRAPPER (JAPANESE LANGUAGE COURSE, TEST, SCORE INFORMATION)
       ===================================================== */}
-      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#253488]  rounded-[10px] bg-white box-border">
+      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#253488]  rounded-[10px]  box-border">
         <table className="print-table-fix w-full min-w-[950px] border-collapse table-fixed text-left">
           {/* COLUMN WIDTH DEFINITIONS */}
           <colgroup>
@@ -28,7 +28,7 @@ function JapLangInfoSec() {
                 colSpan={7}
                 className="bg-[#253488] text-white p-3 align-middle whitespace-nowrap"
               >
-                <div className="flex items-center gap-2 font-extrabold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
+                <div className="flex items-center gap-2 font-bold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
                   <span className="font-black">৬.</span>
                   <span>জাপানিজ ভাষা শিক্ষা কোর্স, টেস্ট, স্কোর ইনফরমেশন</span>
                   <span className="font-[Arial,Helvetica,sans-serif] text-[0.85em]">
@@ -62,9 +62,7 @@ function JapLangInfoSec() {
               <th className="p-2.5 border-r-[3px] border-[#253488] text-center whitespace-nowrap">
                 পরীক্ষার তারিখ
               </th>
-              <th className="p-2.5 text-center ">
-                সংভাব্য পরীক্ষার তারিখ
-              </th>
+              <th className="p-2.5 text-center ">সম্ভাব্য পরীক্ষার তারিখ</th>
             </tr>
           </thead>
 
@@ -72,105 +70,46 @@ function JapLangInfoSec() {
               TABLE BODY
           =================================================== */}
           <tbody className="divide-y-[3px] divide-[#253488]">
-            {/* ROW 1 */}
-            <tr>
-              <td className="p-2.5 font-extrabold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                01.
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                JLPT/NAT/JLCT/JPT
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                N4/N5
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                180
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                1234567890
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-            </tr>
+            {data &&
+              data.length > 0 &&
+              data.map((item, index) => (
+                <tr key={index}>
+                  {/* সিরিয়াল নম্বর (01, 02...) */}
+                  <td className="p-2.5 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
+                    {String(index + 1).padStart(2, "0")}.
+                  </td>
 
-            {/* ROW 2 */}
-            <tr>
-              <td className="p-2.5 font-extrabold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                02.
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                JLPT/NAT/JLCT/JPT
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                N4/N5
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                180
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                1234567890
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-            </tr>
+                  {/* পরীক্ষা (JLPT / NAT / JLCT) */}
+                  <td className="p-2.5 text-[#090909] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                    {item.exam}
+                  </td>
 
-            {/* ROW 3 */}
-            <tr>
-              <td className="p-2.5 font-extrabold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                03.
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                JLPT/NAT/JLCT/JPT
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                N4/N5
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                180
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                1234567890
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-            </tr>
+                  {/* লেভেল (N5 / N4) */}
+                  <td className="p-2.5 text-[#090909] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
+                    {item.level}
+                  </td>
 
-            {/* ROW 4 */}
-            <tr>
-              <td className="p-2.5 font-extrabold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                04.
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                JLPT/NAT/JLCT/JPT
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                N4/N5
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                180
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
-                1234567890
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                দিন-মাস-বছর
-              </td>
-            </tr>
+                  {/* স্কোর / নম্বর */}
+                  <td className="p-2.5 text-[#090909] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
+                    {item.score}
+                  </td>
+
+                  {/* রোল নম্বর */}
+                  <td className="p-2.5 text-[#090909] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap">
+                    {item.rollNumber}
+                  </td>
+
+                  {/* পরীক্ষার তারিখ */}
+                  <td className="p-2.5 text-[#090909] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#253488] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                    {item.examDate}
+                  </td>
+
+                  {/* রেজাল্ট/ইস্যুর তারিখ */}
+                  <td className="p-2.5 text-[#090909] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                    {item.resultDate || item.issueDate || item.examDate}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

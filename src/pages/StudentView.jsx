@@ -107,7 +107,7 @@ const StudentView = () => {
   const currentEducation = student.currentEducation || {};
   const japaneseTests = student.japaneseLanguageTests || [];
   return (
-    <section className="w-full font-semibold max-w-[1800px] mx-auto px-1.5 sm:px-2 md:px-2.5 lg:px-4 pt-1.5 sm:pt-2 box-border font-['Noto_Sans_Bengali','Noto_Serif_Bengali','Kalpurush',Arial,sans-serif] print:p-2 print:m-0 print:max-w-full grid grid-cols-1 gap-4 print:gap-2 overflow-hidden overflow_hidden">
+    <section className="w-full font-semibold max-w-[1800px] mx-auto px-1.5 sm:px-2 md:px-2.5 lg:px-4 pt-1.5 sm:pt-2 box-border font-['Noto_Sans_Bengali','Noto_Serif_Bengali','Kalpurush',Arial,sans-serif] print:p-2 print:m-0 print:max-w-full grid grid-cols-1 gap-4 print:gap-2 overflow-hidden overflow_hidden bg-white shadow-2xl print:shadow-none">
       {/* =====================================================
           PRINT SPECIFIC CSS STYLES
       ===================================================== */}

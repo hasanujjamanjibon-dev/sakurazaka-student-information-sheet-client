@@ -16,14 +16,14 @@ function StudentInfo({ data }) {
       {/* =====================================================
           TOP TITLE
       ===================================================== */}
-      <div className="print-header-title w-full sm:w-[96%] md:w-[75%] lg:w-[65%] xl:w-[56%] max-w-[1015px] min-h-[43px] sm:min-h-[48px] md:min-h-[52px] lg:h-[clamp(52px,4vw,60px)] mx-auto mb-2.5 px-4 sm:px-5 md:px-7 py-2 flex items-center justify-center box-border bg-[#b51e26] border border-[#1674bd] rounded-full text-white font-[Arial,Helvetica,sans-serif] text-[clamp(15px,2.05vw,30px)] font-extrabold tracking-[0.3px] leading-tight text-center whitespace-normal lg:whitespace-nowrap overflow-hidden">
+      <div className="print-header-title w-full sm:w-[96%] md:w-[75%] lg:w-[65%] xl:w-[56%] max-w-[1015px] min-h-[43px] sm:min-h-[48px] md:min-h-[52px] lg:h-[clamp(52px,4vw,60px)] mx-auto mb-2.5 px-4 sm:px-5 md:px-7 py-2 flex items-center justify-center box-border bg-[#b51e26] border border-[#1674bd] rounded-full text-white font-[Arial,Helvetica,sans-serif] text-[clamp(15px,2.05vw,30px)] font-semibold tracking-[0.3px] leading-tight text-center whitespace-normal lg:whitespace-nowrap overflow-hidden">
         SAKURAZAKA – STUDENT INFORMATION SHEET
       </div>
 
       {/* =====================================================
           MAIN TABLE WRAPPER
       ===================================================== */}
-      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#2178bd]  rounded-[10px] bg-white box-border">
+      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#2178bd]  rounded-[10px]  box-border">
         <table className="print-table-fix w-full min-w-[950px] border-collapse table-fixed text-left">
           {/* COLUMN WIDTH DEFINITIONS */}
           <colgroup>
@@ -42,7 +42,7 @@ function StudentInfo({ data }) {
                 colSpan={2}
                 className="bg-[#1978bd] text-white p-3.5 align-middle border-r-[3px] border-[#2178bd]"
               >
-                <div className="flex items-center gap-2 font-extrabold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
+                <div className="flex items-center gap-2 font-bold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
                   <span className="font-black">১.</span>
                   <span>স্টুডেন্ট ইনফরমেশন</span>
                   <span className="font-[Arial,Helvetica,sans-serif] text-[0.85em]">
@@ -59,14 +59,6 @@ function StudentInfo({ data }) {
                   text-center
                 "
               >
-                <div className="flex items-center justify-center gap-1.5 text-[14px] md:text-[16px] font-medium leading-tight print:text-[11px]">
-                  <AlertTriangle
-                    className="w-5 h-5 shrink-0 text-[#e91919] print:w-4 print:h-4"
-                    strokeWidth={3}
-                  />
-                  <span>বিভিন্ন ইংরেজিতে অবশ্যই পূরণ করতে হবে</span>
-                  <span className="font-semibold text-[#ef2020]">(*)</span>
-                </div>
               </th>
             </tr>
           </thead>

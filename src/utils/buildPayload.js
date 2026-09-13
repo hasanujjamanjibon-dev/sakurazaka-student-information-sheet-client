@@ -165,7 +165,6 @@ export const buildPayload = (data) => ({
 
       expectedExamDate: safeToUpper(data.JLPTExpectedExamDate),
     },
-
     {
       exam: "NAT",
 

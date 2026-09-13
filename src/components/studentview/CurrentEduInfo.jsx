@@ -1,12 +1,14 @@
 import React from "react";
 
-function CurrentEduInfo() {
+function CurrentEduInfo({ data }) {
+  const { universityName, semester, roll, registration, department, course } =
+    data;
   return (
     <section>
       {/* =====================================================
           MAIN TABLE WRAPPER (CURRENT EDUCATIONAL INFORMATION)
       ===================================================== */}
-      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#8e24aa]  rounded-[10px] bg-white box-border">
+      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#8e24aa]  rounded-[10px]  box-border">
         <table className="print-table-fix w-full min-w-[950px] border-collapse table-fixed text-left">
           {/* COLUMN WIDTH DEFINITIONS */}
           <colgroup>
@@ -23,7 +25,7 @@ function CurrentEduInfo() {
               <th colSpan={3} className="text-white px-3.5 py-2.5 align-middle">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   {/* LEFT: TITLE */}
-                  <div className="flex items-center gap-2 font-extrabold text-[16px] md:text-[19px] leading-tight print:text-[13px] whitespace-nowrap">
+                  <div className="flex items-center gap-2 font-bold text-[16px] md:text-[19px] leading-tight print:text-[13px] whitespace-nowrap">
                     <span className="font-black">৫.</span>
                     <span>বর্তমান পড়াশুনার তথ্য</span>
                     <span className="font-[Arial,Helvetica,sans-serif] text-[0.85em]">
@@ -32,29 +34,51 @@ function CurrentEduInfo() {
                   </div>
 
                   {/* RIGHT: CHECKBOXES (SAME HEADER ROW) */}
-                  <div className="flex items-center gap-4 sm:gap-6 text-[14px] md:text-[15px] font-bold text-white whitespace-nowrap">
-                    <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
-                      />
-                      <span>ভর্তি হয়েছি</span>
-                    </label>
-                    <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
-                      />
-                      <span>ভর্তি হয়নি</span>
-                    </label>
-                    <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
-                      <input
-                        type="checkbox"
-                        className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
-                      />
-                      <span>ভর্তি হবো</span>
-                    </label>
-                  </div>
+                  {(() => {
+                    const status = data?.currentAdmissionStatus?.toLowerCase();
+
+                    return (
+                      <div className="flex items-center gap-4 sm:gap-6 text-[14px] md:text-[15px] font-bold text-white whitespace-nowrap">
+                        {/* ভর্তি হয়েছি */}
+                        <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
+                          <input
+                            type="checkbox"
+                            checked={status === "admitted"}
+                            readOnly
+                            className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
+                          />
+                          <span>ভর্তি হয়েছি</span>
+                        </label>
+
+                        {/* ভর্তি হইনি */}
+                        <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
+                          <input
+                            type="checkbox"
+                            checked={
+                              status === "not_admitted" ||
+                              status === "not admitted"
+                            }
+                            readOnly
+                            className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
+                          />
+                          <span>ভর্তি হয়নি</span>
+                        </label>
+
+                        {/* ভর্তি হবো */}
+                        <label className="inline-flex items-center gap-1.5 cursor-pointer font-semibold select-none">
+                          <input
+                            type="checkbox"
+                            checked={
+                              status === "will_admit" || status === "will admit"
+                            }
+                            readOnly
+                            className="w-4 h-4 accent-purple-950 bg-white border-none rounded"
+                          />
+                          <span>ভর্তি হবো</span>
+                        </label>
+                      </div>
+                    );
+                  })()}
                 </div>
               </th>
             </tr>
@@ -79,14 +103,14 @@ function CurrentEduInfo() {
 
             {/* ROW 1: PLACEHOLDERS */}
             <tr>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                কলেজ/বিশ্ববিদ্যালয়ের এর নাম ইংরেজিতে লিখতে হবে
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {universityName}
               </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                যেমনঃ Accounting, Economics, Chemistry, Pass Course etc.
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {department}
               </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                যেমনঃ ২য় বর্ষ / ৩য় সেমিস্টার
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {semester}
               </td>
             </tr>
 
@@ -105,14 +129,14 @@ function CurrentEduInfo() {
 
             {/* ROW 2: PLACEHOLDERS */}
             <tr>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                যেমনঃ B.Sc/B.B.A/B.S.S/B.A etc.
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {course}
               </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                কলেজ আইডি কার্ড অনুযায়ী
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#8e24aa] text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {roll}
               </td>
-              <td className="p-2.5 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                আইডি কার্ড অনুযায়ী (যদি থাকে)
+              <td className="p-2.5 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
+                {registration}
               </td>
             </tr>
           </tbody>

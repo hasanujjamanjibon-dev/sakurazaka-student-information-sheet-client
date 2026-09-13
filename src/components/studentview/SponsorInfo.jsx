@@ -13,7 +13,7 @@ export default function SponsorInfo({ data }) {
       {/* =====================================================
           MAIN TABLE WRAPPER (SPONSOR INFORMATION)
       ===================================================== */}
-      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#008744]  rounded-[10px] bg-white box-border">
+      <div className="print-scroll-fix w-full overflow-x-auto border-[2px] border-[#008744]  rounded-[10px]  box-border">
         <table className="print-table-fix w-full min-w-[950px] border-collapse table-fixed text-left">
           {/* COLUMN WIDTH DEFINITIONS (RE-BALANCED TO PREVENT MULTILINE WRAPPING) */}
           <colgroup>
@@ -32,7 +32,7 @@ export default function SponsorInfo({ data }) {
                 colSpan={2}
                 className="bg-[#008744] text-white p-3.5 align-middle border-r-[3px] border-[#008744] whitespace-nowrap"
               >
-                <div className="flex items-center gap-2 font-extrabold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
+                <div className="flex items-center gap-2 font-bold text-[16px] md:text-[20px] leading-tight print:text-[13px]">
                   <span className="font-black">২.</span>
                   <span>স্পন্সর ইনফরমেশন</span>
                   <span className="font-[Arial,Helvetica,sans-serif] text-[0.85em]">
@@ -40,7 +40,7 @@ export default function SponsorInfo({ data }) {
                   </span>
                 </div>
               </th>
-              <th colSpan={2} className="p-3.5 align-middle bg-white">
+              <th colSpan={2} className="p-3.5 align-middle ">
                 {/* Right empty header area */}
               </th>
             </tr>
