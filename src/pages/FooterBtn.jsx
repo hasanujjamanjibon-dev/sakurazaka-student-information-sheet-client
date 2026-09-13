@@ -1,7 +1,7 @@
 import { LayoutDashboard, Edit3, Printer } from "lucide-react";
 import { Link } from "react-router-dom";
 
-function FooterBtn() {
+function FooterBtn({ studentId }) {
   const handlePrint = () => {
     window.print();
   };
@@ -29,7 +29,7 @@ function FooterBtn() {
           {/* ২. এডিট বাটন */}
           <Link
             type="button"
-            // to={`/edit/${studentId}`}
+            to={`/edit/${studentId}`}
             className="group relative flex-1 sm:flex-none inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-5 text-xs sm:text-sm font-bold text-amber-700 bg-amber-50/90 rounded-xl shadow-sm border border-amber-200/80 hover:bg-amber-100/90 hover:text-amber-900 hover:border-amber-300 transition-all duration-300 ease-out hover:-translate-y-0.5 active:translate-y-0 active:scale-95 focus:outline-none focus:ring-2 focus:ring-amber-300"
           >
             <Edit3 className="w-4 h-4 text-amber-600 group-hover:text-amber-800 group-hover:rotate-12 transition-transform duration-300" />

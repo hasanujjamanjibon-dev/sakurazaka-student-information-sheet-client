@@ -1,6 +1,13 @@
-import React from "react";
+export default function SponsorInfo({ data }) {
+  const {
+    sponsorName,
+    sponsorFatherName,
+    sponsorMotherName,
+    sponsorBusinessName,
+    sponsorBusinessCategory,
+    sponsorNidNumber,
+  } = data || {};
 
-export default function SponsorInfo() {
   return (
     <section>
       {/* =====================================================
@@ -51,8 +58,8 @@ export default function SponsorInfo() {
                   *
                 </span>
               </td>
-              <td className="p-3 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
-                ইংরেজি বড় হাতের অক্ষরে লিখতে হবে
+              <td className="p-3 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
+                {sponsorName}
               </td>
               <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
                 স্পন্সর এর এন.আই.ডি নাম্বার
@@ -61,7 +68,7 @@ export default function SponsorInfo() {
                 </span>
               </td>
               <td className="p-3 align-middle whitespace-nowrap">
-                {/* Empty field */}
+                {sponsorNidNumber}
               </td>
             </tr>
 
@@ -71,33 +78,36 @@ export default function SponsorInfo() {
                 স্পন্সর এর বাবার নাম
                 <span className="ml-1 text-[#f22914]">*</span>
               </td>
-              <td className="p-3 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
-                স্পন্সর এর বাবার নাম ইংরেজিতে
+              <td className="p-3 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
+                {sponsorFatherName}
               </td>
               <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
-                স্পন্সর এর মায়ের নাম
+                স্পন্সর এর মায়ের নাম
                 <span className="ml-1 text-[#f22914]">*</span>
               </td>
-              <td className="p-3 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle whitespace-nowrap overflow-hidden text-ellipsis">
-                স্পন্সর এর মায়ের নাম ইংরেজিতে
+              <td className="p-3 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle whitespace-nowrap overflow-hidden text-ellipsis">
+                {sponsorMotherName}
               </td>
             </tr>
 
             {/* ROW 3: BUSINESS NAME & CATEGORY */}
-            <tr>
-              <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
-                ব্যবসার নাম (যদি থাকে)
-              </td>
-              <td className="p-3 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
-                ব্যবসার নাম ইংরেজিতে
-              </td>
-              <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
-                ব্যবসার ক্যাটাগরি (যদি থাকে)
-              </td>
-              <td className="p-3 text-[#bfc0c2] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle whitespace-nowrap overflow-hidden text-ellipsis">
-                ব্যবসার ক্যাটাগরি ইংরেজিতে
-              </td>
-            </tr>
+
+            {sponsorBusinessName && sponsorBusinessCategory && (
+              <tr>
+                <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
+                  ব্যবসার নাম (যদি থাকে)
+                </td>
+                <td className="p-3 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap overflow-hidden text-ellipsis">
+                  {sponsorBusinessName}
+                </td>
+                <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#008744] whitespace-nowrap">
+                  ব্যবসার ক্যাটাগরি (যদি থাকে)
+                </td>
+                <td className="p-3 text-black font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle whitespace-nowrap overflow-hidden text-ellipsis">
+                  {sponsorBusinessCategory}
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

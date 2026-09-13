@@ -1,6 +1,16 @@
-import React from "react";
 import { AlertTriangle } from "lucide-react";
-function StudentInfo() {
+import showDate from "../../utils/showDate";
+function StudentInfo({ data }) {
+  const {
+    studentName,
+    studentPhone,
+    studentAltPhone,
+    studentDob,
+    studentPresentAddress,
+    studentFatherPhone,
+    studentMotherPhone,
+  } = data;
+
   return (
     <section>
       {/* =====================================================
@@ -74,7 +84,7 @@ function StudentInfo() {
                 </span>
               </td>
               <td className="p-3 text-[#111] font-[Arial,'Noto_Sans_Bengali',sans-serif] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#2178bd] break-words">
-                —
+                {studentName || "—"}
               </td>
               <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#2178bd]">
                 স্টুডেন্ট জন্ম তারিখ
@@ -83,7 +93,7 @@ function StudentInfo() {
                 </span>
               </td>
               <td className="p-3 text-[#111] font-[Arial,Helvetica,sans-serif] text-[15px] lg:text-[17px] align-middle">
-                —
+                {showDate(studentDob) || "—"}
               </td>
             </tr>
 
@@ -95,7 +105,9 @@ function StudentInfo() {
               </td>
               <td className="p-3 align-middle border-r-[3px] border-[#2178bd]">
                 <div className="flex items-center gap-1.5 font-[Arial,Helvetica,sans-serif] text-[15px] lg:text-[17px]">
-                  <span className="font-medium text-[#111]">+88</span>
+                  <span className="font-medium text-[#111]">
+                    +88{studentPhone}
+                  </span>
                 </div>
               </td>
               <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#2178bd]">
@@ -104,7 +116,9 @@ function StudentInfo() {
               </td>
               <td className="p-3 align-middle">
                 <div className="flex items-center gap-1.5 font-[Arial,Helvetica,sans-serif] text-[15px] lg:text-[17px]">
-                  <span className="font-medium text-[#111]">+88</span>
+                  <span className="font-medium text-[#111]">
+                    +88{studentFatherPhone}
+                  </span>
                 </div>
               </td>
             </tr>
@@ -117,7 +131,9 @@ function StudentInfo() {
               </td>
               <td className="p-3 align-middle border-r-[3px] border-[#2178bd]">
                 <div className="flex items-center gap-1.5 font-[Arial,Helvetica,sans-serif] text-[15px] lg:text-[17px]">
-                  <span className="font-medium text-[#111]">+88</span>
+                  <span className="font-medium text-[#111]">
+                    +88{studentAltPhone}
+                  </span>
                 </div>
               </td>
               <td className="p-3 font-bold text-[#090909] text-[15px] lg:text-[17px] align-middle border-r-[3px] border-[#2178bd]">
@@ -126,7 +142,9 @@ function StudentInfo() {
               </td>
               <td className="p-3 align-middle">
                 <div className="flex items-center gap-1.5 font-[Arial,Helvetica,sans-serif] text-[15px] lg:text-[17px]">
-                  <span className="font-medium text-[#111]">+88</span>
+                  <span className="font-medium text-[#111]">
+                    +88{studentMotherPhone}
+                  </span>
                 </div>
               </td>
             </tr>
@@ -139,9 +157,9 @@ function StudentInfo() {
               </td>
               <td
                 colSpan={3}
-                className="p-3 text-[#bfc0c2] font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle break-words"
+                className="p-3 text-black font-[Arial,Helvetica,sans-serif] text-[14px] lg:text-[16px] align-middle break-words"
               >
-                House No., Road No., Area, Police station, District, Postal Code
+                {studentPresentAddress}
               </td>
             </tr>
           </tbody>

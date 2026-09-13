@@ -46,10 +46,10 @@ export const buildPayload = (data) => ({
   // =====================================================
   // FAMILY INFORMATION
   // =====================================================
-
   familyInformation: [
     {
       relation: "Father",
+      hasFather: data.hasFather || "Yes",
       name: safeToUpper(data.fatherName),
       dob: data.fatherDob,
       occupation: safeToUpper(data.fatherOccupation),
@@ -57,6 +57,7 @@ export const buildPayload = (data) => ({
 
     {
       relation: "Mother",
+      hasMother: data.hasMother || "Yes",
       name: safeToUpper(data.motherName),
       dob: data.motherDob,
       occupation: safeToUpper(data.motherOccupation),

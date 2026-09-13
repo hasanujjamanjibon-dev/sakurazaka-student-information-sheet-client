@@ -1,7 +1,6 @@
-export default function toInputDate(date) {
-  if (!date) return "";
 
-  // =========================================
+export default function toInputDate(date) {
+  if (!date) return ""; // =========================================
   // MongoDB Date / JavaScript Date
   // =========================================
 
@@ -11,25 +10,19 @@ export default function toInputDate(date) {
     return date.toISOString().split("T")[0];
   }
 
-  const value = String(date).trim();
-
-  // =========================================
+  const value = String(date).trim(); // =========================================
   // YYYY-MM-DD
   // =========================================
 
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
     return value;
-  }
-
-  // =========================================
+  } // =========================================
   // ISO String
   // =========================================
 
   if (value.includes("T")) {
     return value.split("T")[0];
-  }
-
-  // =========================================
+  } // =========================================
   // DD/MM/YYYY
   // =========================================
 
@@ -37,9 +30,7 @@ export default function toInputDate(date) {
     const [day, month, year] = value.split("/");
 
     return `${year}-${month}-${day}`;
-  }
-
-  // =========================================
+  } // =========================================
   // DD-MM-YYYY
   // =========================================
 
@@ -47,9 +38,7 @@ export default function toInputDate(date) {
     const [day, month, year] = value.split("-");
 
     return `${year}-${month}-${day}`;
-  }
-
-  // =========================================
+  } // =========================================
   // DD/MM/YY
   // =========================================
 
@@ -57,9 +46,7 @@ export default function toInputDate(date) {
     const [day, month, year] = value.split("/");
 
     return `20${year}-${month}-${day}`;
-  }
-
-  // =========================================
+  } // =========================================
   // DD-MM-YY
   // =========================================
 
@@ -67,9 +54,7 @@ export default function toInputDate(date) {
     const [day, month, year] = value.split("-");
 
     return `20${year}-${month}-${day}`;
-  }
-
-  // =========================================
+  } // =========================================
   // 26 Aug 2026
   // =========================================
 
