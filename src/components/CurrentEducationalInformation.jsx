@@ -1,97 +1,3 @@
-// import InputField from "./common/InputField";
-// import YesNoField from "./common/YesNoField";
-// import { useFormContext } from "react-hook-form";
-
-// const CurrentEducationalInformation = () => {
-//   const { register, watch } = useFormContext();
-
-//   const admissionStatus = watch("currentAdmissionStatus");
-//   const admitOptions = [
-//     {
-//       label: "ভর্তি হয়েছি",
-//       value: "admitted",
-//     },
-//     {
-//       label: "ভর্তি হইনি",
-//       value: "not_admitted",
-//     },
-//     {
-//       label: "ভর্তি হবো",
-//       value: "will_admit",
-//     },
-//   ];
-//   return (
-//     <section className="w-full rounded-xl border border-violet-800 bg-white shadow-sm overflow-hidden">
-//       {/* Header */}
-//       <div className="bg-violet-800 px-4 py-3 ">
-//         <h2 className="text-white font-bold text-sm sm:text-base md:text-lg">
-//           ৫. বর্তমান পড়াশুনার ইনফরমেশন{" "}
-//           <span className="font-semibold">(Educational Information)</span>
-//         </h2>
-//       </div>
-//       <div className="px-4 py-3 flex gap-4">
-//         {admitOptions.map((option) => (
-//           <label
-//             key={option.value}
-//             className="flex items-center gap-2 cursor-pointer"
-//           >
-//             <input
-//               type="radio"
-//               name="admit"
-//               value={option.value}
-//               {...register("currentAdmissionStatus")}
-//               className="h-5 w-5 accent-black"
-//             />
-//             <span>{option.label}</span>
-//           </label>
-//         ))}
-//       </div>
-//       <hr className="border-violet-800 border" />
-//       {admissionStatus !== "not_admitted" && (
-//         <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-//           <InputField
-//             label="বর্তমান স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম"
-//             type="text"
-//             name="currentUniversityName"
-//             placeholder="ইংরেজি নাম লিখতে হবে"
-//           />
-//           <InputField
-//             label="যে ডিপার্টমেন্ট এ পড়েন"
-//             type="text"
-//             name="currentDepartment"
-//             placeholder="Accounting, Economics, Chemistry, Physics, etc."
-//           />
-//           <InputField
-//             label="কোর্সের নাম"
-//             type="text"
-//             name="currentCourse"
-//             placeholder="CSE, EEE, BBA, BSc, BSS etc. লিখতে হবে"
-//           />
-//           <InputField
-//             label="যে বর্ষে/সেমিস্টারে পড়েন"
-//             type="text"
-//             name="currentSemester"
-//             placeholder="1st Year/ 1st Semester etc."
-//           />
-//           <InputField
-//             label="ক্লাস রোল/আইডি নং"
-//             type="text"
-//             name="currentRoll"
-//             placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
-//           />
-//           <InputField
-//             label="রেজিষ্ট্রেশন নং"
-//             type="text"
-//             name="currentRegistration"
-//             placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে (যদি থাকে)"
-//           />
-//         </div>
-//       )}
-//     </section>
-//   );
-// };
-
-// export default CurrentEducationalInformation;
 import InputField from "./common/InputField";
 import { useFormContext } from "react-hook-form";
 
@@ -119,15 +25,8 @@ const CurrentEducationalInformation = () => {
     },
   ];
 
-  // শর্ত সাপেক্ষে ডায়নামিক ভ্যালিডেশন চেক
   const isAdmitted = admissionStatus === "admitted";
   const isWillAdmit = admissionStatus === "will_admit";
-
-  const isUniRequired = isAdmitted || isWillAdmit;
-  const isDeptRequired = isAdmitted || isWillAdmit;
-  const isCourseRequired = isAdmitted;
-  const isSemesterRequired = isAdmitted;
-  const isRollRequired = isAdmitted;
 
   return (
     <section className="w-full rounded-xl border border-violet-800 bg-white shadow-sm overflow-hidden">
@@ -172,105 +71,93 @@ const CurrentEducationalInformation = () => {
       <hr className="border-violet-800 border" />
 
       {/* Dynamic Input Fields */}
-      {admissionStatus && admissionStatus !== "not_admitted" && (
+      {(isAdmitted || isWillAdmit) && (
         <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {/* প্রতিষ্ঠানের নাম */}
+          {/* প্রতিষ্ঠানের নাম (ভর্তি হয়েছি ও ভর্তি হবো দুটোর জন্যই আবশ্যক) */}
           <InputField
             label={
               <span>
                 বর্তমান স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম{" "}
-                {isUniRequired && <span className="text-red-500">*</span>}
+                <span className="text-red-500">*</span>
               </span>
             }
             type="text"
             name="currentUniversityName"
             placeholder="ইংরেজি নাম লিখতে হবে"
-            rules={
-              isUniRequired
-                ? { required: "প্রতিষ্ঠানের নাম দেওয়া আবশ্যক" }
-                : undefined
-            }
+            rules={{ required: "প্রতিষ্ঠানের নাম দেওয়া আবশ্যক" }}
           />
 
-          {/* ডিপার্টমেন্ট */}
+          {/* ডিপার্টমেন্ট (ভর্তি হয়েছি ও ভর্তি হবো দুটোর জন্যই আবশ্যক) */}
           <InputField
             label={
               <span>
-                যে ডিপার্টমেন্ট এ পড়েন{" "}
-                {isDeptRequired && <span className="text-red-500">*</span>}
+                যে ডিপার্টমেন্ট এ পড়েন / পড়বেন{" "}
+                <span className="text-red-500">*</span>
               </span>
             }
             type="text"
             name="currentDepartment"
             placeholder="Accounting, Economics, Chemistry, Physics, etc."
-            rules={
-              isDeptRequired
-                ? { required: "ডিপার্টমেন্টের নাম দেওয়া আবশ্যক" }
-                : undefined
-            }
+            rules={{ required: "ডিপার্টমেন্টের নাম দেওয়া আবশ্যক" }}
           />
 
-          {/* কোর্সের নাম */}
-          <InputField
-            label={
-              <span>
-                কোর্সের নাম{" "}
-                {isCourseRequired && <span className="text-red-500">*</span>}
-              </span>
-            }
-            type="text"
-            name="currentCourse"
-            placeholder="CSE, EEE, BBA, BSc, BSS etc. লিখতে হবে"
-            rules={
-              isCourseRequired
-                ? { required: "কোর্সের নাম দেওয়া আবশ্যক" }
-                : undefined
-            }
-          />
+          {/* শুধু 'ভর্তি হয়েছি' (admitted) হলে নিচের সব ফিল্ড দেখাবে ও বাধ্যতামূলক হবে */}
+          {isAdmitted && (
+            <>
+              {/* কোর্সের নাম */}
+              <InputField
+                label={
+                  <span>
+                    কোর্সের নাম <span className="text-red-500">*</span>
+                  </span>
+                }
+                type="text"
+                name="currentCourse"
+                placeholder="CSE, EEE, BBA, BSc, BSS etc. লিখতে হবে"
+                rules={{ required: "কোর্সের নাম দেওয়া আবশ্যক" }}
+              />
 
-          {/* বর্ষ/সেমিস্টার */}
-          <InputField
-            label={
-              <span>
-                যে বর্ষে/সেমিস্টারে পড়েন{" "}
-                {isSemesterRequired && <span className="text-red-500">*</span>}
-              </span>
-            }
-            type="text"
-            name="currentSemester"
-            placeholder="1st Year/ 1st Semester etc."
-            rules={
-              isSemesterRequired
-                ? { required: "বর্ষ/সেমিস্টার দেওয়া আবশ্যক" }
-                : undefined
-            }
-          />
+              {/* বর্ষ/সেমিস্টার */}
+              <InputField
+                label={
+                  <span>
+                    যে বর্ষে/সেমিস্টারে পড়েন{" "}
+                    <span className="text-red-500">*</span>
+                  </span>
+                }
+                type="text"
+                name="currentSemester"
+                placeholder="1st Year/ 1st Semester etc."
+                rules={{ required: "বর্ষ/সেমিস্টার দেওয়া আবশ্যক" }}
+              />
 
-          {/* রোল/আইডি নং */}
-          <InputField
-            label={
-              <span>
-                ক্লাস রোল/আইডি নং{" "}
-                {isRollRequired && <span className="text-red-500">*</span>}
-              </span>
-            }
-            type="text"
-            name="currentRoll"
-            placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
-            rules={
-              isRollRequired
-                ? { required: "ক্লাস রোল/আইডি দেওয়া আবশ্যক" }
-                : undefined
-            }
-          />
+              {/* রোল/আইডি নং */}
+              <InputField
+                label={
+                  <span>
+                    ক্লাস রোল/আইডি নং <span className="text-red-500">*</span>
+                  </span>
+                }
+                type="text"
+                name="currentRoll"
+                placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
+                rules={{ required: "ক্লাস রোল/আইডি দেওয়া আবশ্যক" }}
+              />
 
-          {/* রেজিস্ট্রেশন নং (সবসময় অপশনাল) */}
-          <InputField
-            label="রেজিষ্ট্রেশন নং"
-            type="text"
-            name="currentRegistration"
-            placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে (যদি থাকে)"
-          />
+              {/* রেজিস্ট্রেশন নং (ভর্তি হয়েছি হলে বাধ্যতামূলক) */}
+              <InputField
+                label={
+                  <span>
+                    রেজিষ্ট্রেশন নং <span className="text-red-500">*</span>
+                  </span>
+                }
+                type="text"
+                name="currentRegistration"
+                placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
+                rules={{ required: "রেজিস্ট্রেশন নম্বর দেওয়া আবশ্যক" }}
+              />
+            </>
+          )}
         </div>
       )}
     </section>

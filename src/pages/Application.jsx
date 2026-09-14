@@ -35,7 +35,7 @@ const Application = () => {
   const backendBaseURL = import.meta.env.VITE_BackendURL;
 
   const methods = useForm({
-    shouldUnregister: true,
+    // shouldUnregister: true,
 
     defaultValues: {
       hasFather: "Yes",
