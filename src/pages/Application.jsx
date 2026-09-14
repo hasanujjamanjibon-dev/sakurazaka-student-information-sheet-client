@@ -519,7 +519,7 @@ const Application = () => {
       });
 
       if (isEditMode) {
-        navigate("/dashboard/sakura-office");
+        navigate(`/view/${id}`);
       }
     } catch (error) {
       console.error(error);

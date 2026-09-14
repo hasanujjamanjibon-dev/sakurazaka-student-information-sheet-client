@@ -1,5 +1,6 @@
 import InputField from "./common/InputField";
 import YesNoField from "./common/YesNoField";
+import SelectField from "./common/SelectField";
 import { useFormContext } from "react-hook-form";
 
 const FamilyInformation = () => {
@@ -7,6 +8,13 @@ const FamilyInformation = () => {
   const hasFather = watch("hasFather");
   const hasMother = watch("hasMother");
   const siblingName = watch("siblingName");
+
+  const siblingRelationshipOptions = [
+    { label: "Elder Brother", value: "ELDER BROTHER" },
+    { label: "Younger Brother", value: "YOUNGER BROTHER" },
+    { label: "Elder Sister", value: "ELDER SISTER" },
+    { label: "Younger Sister", value: "YOUNGER SISTER" },
+  ];
 
   return (
     <section className="w-full rounded-xl border border-pink-500 bg-white shadow-sm overflow-hidden">
@@ -113,12 +121,21 @@ const FamilyInformation = () => {
           placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
         />
 
-        <InputField
-          label="সম্পর্ক"
-          type="text"
+        {/* Dropdown Select for Sibling Relationship */}
+        <SelectField
+          label={
+            <span>
+              সম্পর্ক {siblingName && <span className="text-red-500">*</span>}
+            </span>
+          }
           name="siblingRelationship"
-          className="placeholder:text-sm"
-          placeholder="Elder Brother, Younger Sister, Elder Sister, Younger Brother"
+          placeholder="সম্পর্ক নির্বাচন করুন"
+          options={siblingRelationshipOptions}
+          rules={
+            siblingName
+              ? { required: "সম্পর্ক নির্বাচন করা আবশ্যক" }
+              : undefined
+          }
         />
 
         <InputField
