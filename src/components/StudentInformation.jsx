@@ -1,5 +1,3 @@
-
-
 import { User } from "lucide-react";
 import InputField from "./common/InputField";
 import { useFormContext } from "react-hook-form";
@@ -205,7 +203,7 @@ export default function StudentInformation({ existingPhoto = "" }) {
           }}
         />
 
-        <TextAreaFiled
+        <InputField
           label={
             <span>
               ছাত্র/ছাত্রীর বর্তমান ঠিকানা{" "}

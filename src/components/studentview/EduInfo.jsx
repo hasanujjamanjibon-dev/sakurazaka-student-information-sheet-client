@@ -33,18 +33,6 @@ export default function EduInfo({ data }) {
                   </span>
                 </div>
               </th>
-              <th
-                colSpan={2}
-                className="p-3 align-middle  text-center whitespace-nowrap"
-              >
-                <div className="flex items-center justify-center gap-1.5 text-[14px] md:text-[16px] font-medium text-[#c01823] leading-tight print:text-[11px]">
-                  <AlertTriangle
-                    className="w-5 h-5 shrink-0 text-[#c01823] print:w-4 print:h-4"
-                    strokeWidth={3}
-                  />
-                  <span>বিঃদ্রঃ ইংরেজিতে অবশ্যই পূরণ করতে হবে ।</span>
-                </div>
-              </th>
             </tr>
 
             {/* TABLE COLUMN TITLES */}

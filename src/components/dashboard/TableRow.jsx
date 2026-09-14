@@ -17,8 +17,8 @@ export default function TableRow({ student, onDelete }) {
   return (
     <tr className="transition-colors hover:bg-gray-50">
       {/* Serial */}
-      <td className="px-4 py-4 whitespace-nowrap">
-        <div className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-gray-50 px-3 py-1.5">
+      <td className="p-4 whitespace-nowrap">
+        <div className="inline-flex items-center gap-2 ">
           <CalendarDays size={15} className="text-[#6A1B2E]" />
           <span className="text-sm font-medium text-gray-700">
             {formatDate(student.createdAt).replaceAll(" ", "-")}
@@ -36,7 +36,7 @@ export default function TableRow({ student, onDelete }) {
         </div>
       </td>
       {/* Student */}
-      <td className="min-w-[210px] px-4 py-4">
+      <td className="min-w-[100px] px-4 py-4">
         <h3 className="font-semibold text-[#6A1B2E] whitespace-nowrap">
           {studentName}
         </h3>

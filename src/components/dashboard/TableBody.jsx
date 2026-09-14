@@ -3,7 +3,7 @@ import TableSkeleton from "./TableSkeleton";
 
 export default function TableBody({ students, onDelete, loading }) {
   return (
-    <tbody className="divide-y divide-gray-100 border-t border-gray-100 overflow-y-auto">
+    <tbody className="divide-y divide-gray-100 border-t border-gray-100 overflow-y-scroll">
       {loading
         ? Array.from({ length: 5 }).map((_, index) => (
             <TableSkeleton key={index} />
