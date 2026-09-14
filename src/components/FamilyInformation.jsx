@@ -6,9 +6,10 @@ const FamilyInformation = () => {
   const { watch } = useFormContext();
   const hasFather = watch("hasFather");
   const hasMother = watch("hasMother");
+  const siblingName = watch("siblingName");
 
   return (
-    <section className="w-full rounded-xl border border-pink-500 bg-white shadow-sm overflow-hidden ">
+    <section className="w-full rounded-xl border border-pink-500 bg-white shadow-sm overflow-hidden">
       {/* Header */}
       <div className="bg-pink-800 px-4 py-3">
         <h2 className="text-white font-bold text-sm sm:text-base md:text-lg">
@@ -16,7 +17,8 @@ const FamilyInformation = () => {
           <span className="font-semibold">(Family Information)</span>
         </h2>
       </div>
-      <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2  gap-4">
+
+      <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
         <YesNoField
           label="বাবা বেঁচে আছেন কি না?"
           name="hasFather"
@@ -28,22 +30,35 @@ const FamilyInformation = () => {
           required={true}
         />
       </div>
+
       <hr className="border-pink-500 border" />
-      {/* Sponsor Name */}
-      <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2  gap-4">
+
+      {/* Dynamic Family Details */}
+      <div className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4">
         {hasFather === "Yes" && (
           <>
             <InputField
-              label="বাবার সম্পূর্ণ নাম"
+              label={
+                <span>
+                  বাবার সম্পূর্ণ নাম <span className="text-red-500">*</span>
+                </span>
+              }
               type="text"
               name="fatherName"
               placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
+              rules={{ required: "বাবার নাম দেওয়া আবশ্যক" }}
             />
 
             <InputField
-              label="বাবার জন্ম তারিখ (মাস/দিন/বছর)"
+              label={
+                <span>
+                  বাবার জন্ম তারিখ (মাস/দিন/বছর){" "}
+                  <span className="text-red-500">*</span>
+                </span>
+              }
               type="date"
               name="fatherDob"
+              rules={{ required: "বাবার জন্ম তারিখ নির্বাচন করা আবশ্যক" }}
             />
 
             <InputField
@@ -54,45 +69,74 @@ const FamilyInformation = () => {
             />
           </>
         )}
+
         {hasMother === "Yes" && (
           <>
             <InputField
-              label="মাতার সম্পূর্ণ নাম"
+              label={
+                <span>
+                  মাতার সম্পূর্ণ নাম <span className="text-red-500">*</span>
+                </span>
+              }
               type="text"
               name="motherName"
               placeholder="ইংরেজিতে লিখতে হবে"
+              rules={{ required: "মায়ের নাম দেওয়া আবশ্যক" }}
             />
+
             <InputField
-              label="মাতার জন্ম তারিখ (মাস/দিন/বছর)"
+              label={
+                <span>
+                  মাতার জন্ম তারিখ (মাস/দিন/বছর){" "}
+                  <span className="text-red-500">*</span>
+                </span>
+              }
               type="date"
               name="motherDob"
+              rules={{ required: "মায়ের জন্ম তারিখ নির্বাচন করা আবশ্যক" }}
             />
+
             <InputField
               label="মাতার পেশা"
               type="text"
               name="motherOccupation"
               placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
-            />{" "}
+            />
           </>
         )}
+
+        {/* Dynamic Sibling Fields */}
         <InputField
           label="ভাই/বোনের সম্পূর্ণ নাম"
           type="text"
           name="siblingName"
           placeholder="সার্টিফিকেট অনুযায়ী ইংরেজি নাম লিখতে হবে"
         />
+
         <InputField
           label="সম্পর্ক"
           type="text"
           name="siblingRelationship"
-          className="  placeholder:text-sm"
+          className="placeholder:text-sm"
           placeholder="Elder Brother, Younger Sister, Elder Sister, Younger Brother"
         />
+
         <InputField
-          label="ভাই/বোনের জন্ম তারিখ (মাস/দিন/বছর)"
+          label={
+            <span>
+              ভাই/বোনের জন্ম তারিখ (মাস/দিন/বছর){" "}
+              {siblingName && <span className="text-red-500">*</span>}
+            </span>
+          }
           type="date"
           name="siblingDob"
+          rules={
+            siblingName
+              ? { required: "ভাই/বোনের জন্ম তারিখ নির্বাচন করা আবশ্যক" }
+              : undefined
+          }
         />
+
         <InputField
           label="ভাই/বোনের পেশা"
           type="text"
