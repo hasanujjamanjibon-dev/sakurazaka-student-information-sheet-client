@@ -9,11 +9,7 @@ export default function TableBody({ students, onDelete, loading }) {
             <TableSkeleton key={index} />
           ))
         : students?.map((student, i) => (
-            <TableRow
-              key={student._id}
-              student={student}
-              onDelete={onDelete}
-            />
+            <TableRow key={student._id} student={student} onDelete={onDelete} />
           ))}
     </tbody>
   );
