@@ -79,7 +79,7 @@ export default function TableRow({ student, onDelete }) {
             rel="noreferrer"
             className="block text-blue-600 hover:underline"
           >
-            Student Photo URL
+            View Student Photo
           </a>
 
           <a
@@ -88,7 +88,7 @@ export default function TableRow({ student, onDelete }) {
             rel="noreferrer"
             className="block text-blue-600 hover:underline"
           >
-            Sponsor Photo URL
+            View Sponsor Photo
           </a>
         </div>
       </td>
