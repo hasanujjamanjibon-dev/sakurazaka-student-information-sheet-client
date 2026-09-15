@@ -93,40 +93,55 @@ export default function TableRow({ student, onDelete }) {
         </div>
       </td>
       {/* Actions */}
-      <td className="min-w-[190px] px-4 py-4">
-        <div className="flex items-center justify-center gap-2 whitespace-nowrap">
+      <td className="min-w-[180px] px-3 py-3">
+        <div className="grid grid-cols-2 gap-1.5 w-max mx-auto">
           {/* View */}
           <Link
             to={`/view/${student._id}`}
-            // to={`/student/${student._id}`}
-            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-blue-200 bg-blue-50 text-blue-700 transition hover:bg-blue-100"
+            className="group inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-blue-200/80 bg-blue-50/80 text-blue-700 text-xs font-bold shadow-xs hover:bg-blue-600 hover:text-white hover:border-blue-600 hover:shadow-blue-500/20 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Eye size={14} />
+            <Eye
+              size={13}
+              className="transition-transform duration-200 group-hover:scale-110"
+            />
+            <span>View</span>
           </Link>
 
           {/* Edit */}
           <Link
             to={`/edit/${student._id}`}
-            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-amber-200 bg-amber-50 text-amber-700 transition hover:bg-amber-100"
+            className="group inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-amber-200/80 bg-amber-50/80 text-amber-700 text-xs font-bold shadow-xs hover:bg-amber-600 hover:text-white hover:border-amber-600 hover:shadow-amber-500/20 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Pencil size={14} />
+            <Pencil
+              size={13}
+              className="transition-transform duration-200 group-hover:scale-110"
+            />
+            <span>Edit</span>
           </Link>
 
           {/* Print */}
-          <button
-            type="button"
-            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-emerald-200 bg-emerald-50 text-emerald-700 transition hover:bg-emerald-100"
+          <Link
+            to={`/view/${student._id}?print=true`}
+            className="group inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-emerald-200/80 bg-emerald-50/80 text-emerald-700 text-xs font-bold shadow-xs hover:bg-emerald-600 hover:text-white hover:border-emerald-600 hover:shadow-emerald-500/20 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
           >
-            <Printer size={14} />
-          </button>
+            <Printer
+              size={13}
+              className="transition-transform duration-200 group-hover:scale-110"
+            />
+            <span>Print</span>
+          </Link>
 
           {/* Delete */}
           <button
             type="button"
             onClick={() => onDelete(student)}
-            className="flex h-8 w-10 shrink-0 cursor-pointer items-center justify-center rounded-lg border border-red-200 bg-red-50 text-red-700 transition hover:bg-red-100"
+            className="group inline-flex items-center justify-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-rose-200/80 bg-rose-50/80 text-rose-700 text-xs font-bold shadow-xs hover:bg-rose-600 hover:text-white hover:border-rose-600 hover:shadow-rose-500/20 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
           >
-            <Trash2 size={14} />
+            <Trash2
+              size={13}
+              className="transition-transform duration-200 group-hover:scale-110"
+            />
+            <span>Delete</span>
           </button>
         </div>
       </td>

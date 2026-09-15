@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Loader2, AlertCircle, ArrowLeft, RefreshCw } from "lucide-react";
+
 import StudentInfo from "../components/studentview/StudentInfo";
 import SponsorInfo from "../components/studentview/SponsorInfo";
 import FamilyInfo from "../components/studentview/FamilyInfo";
@@ -6,9 +10,6 @@ import CurrentEduInfo from "../components/studentview/CurrentEduInfo";
 import JapLangInfoSec from "../components/studentview/JapLangInfoSec";
 import FooterBtn from "./FooterBtn";
 import { getStudent } from "../services/studentApi";
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Loader2 } from "lucide-react";
 
 const StudentView = () => {
   const { id } = useParams();
@@ -17,6 +18,8 @@ const StudentView = () => {
   const [student, setStudent] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [searchParams] = useSearchParams();
+  const shouldPrint = searchParams.get("print") === "true";
 
   const loadStudent = async () => {
     try {
@@ -42,11 +45,23 @@ const StudentView = () => {
     }
   };
 
+  // ১. স্টুডেন্ট ডাটা ফেচিং
   useEffect(() => {
     if (id) {
       loadStudent();
     }
   }, [id]);
+
+  // ২. অটো-প্রিন্ট লজিক (ডাটা লোড হলে এবং URL-এ ?print=true থাকলে)
+  useEffect(() => {
+    if (shouldPrint && student) {
+      const timer = setTimeout(() => {
+        window.print();
+      }, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [shouldPrint, student]);
 
   // Loading State
   if (loading) {
@@ -106,58 +121,56 @@ const StudentView = () => {
   const educationHistory = student.educationalHistory || [];
   const currentEducation = student.currentEducation || {};
   const japaneseTests = student.japaneseLanguageTests || [];
+
   return (
-    <section className="w-full font-semibold max-w-[1800px] mx-auto px-1.5 sm:px-2 md:px-2.5 lg:px-4 pt-1.5 sm:pt-2 box-border font-['Noto_Sans_Bengali','Noto_Serif_Bengali','Kalpurush',Arial,sans-serif] print:p-2 print:m-0 print:max-w-full grid grid-cols-1 gap-4 print:gap-2 overflow-hidden overflow_hidden bg-white shadow-2xl print:shadow-none">
-      {/* =====================================================
-          PRINT SPECIFIC CSS STYLES
-      ===================================================== */}
+    <section className="w-full font-semibold max-w-[1800px] mx-auto px-1.5 sm:px-2 md:px-2.5 lg:px-4 pt-1.5 sm:pt-2 box-border font-['Noto_Sans_Bengali','Noto_Serif_Bengali','Kalpurush',Arial,sans-serif] print:p-2 print:m-0 print:max-w-full grid grid-cols-1 gap-4 print:gap-2 overflow-hidden bg-white shadow-2xl print:shadow-none">
+      {/* PRINT SPECIFIC CSS STYLES */}
       <style>{`
         @media print {
-        @page {
-  size: A4 portrait;
-  margin: 8mm;
-}
+          @page {
+            size: A4 portrait;
+            margin: 8mm;
+          }
 
-body {
-  background: #ffffff !important;
-  -webkit-print-color-adjust: exact !important;
-  print-color-adjust: exact !important;
-}
+          body {
+            background: #ffffff !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+          }
 
-/* কর্নার ওভারফ্লো এবং বর্ডার ফিক্স */
-.print-scroll-fix {
-  width: 100% !important;
-  border-radius: 12px !important;
-  overflow: hidden !important;
-  /* Webkit/Chrome প্রিন্ট ইঞ্জিনে রাউন্ড কর্নার ক্রপ করার জন্য clip-path ব্যবহার করা হয়েছে */
-  clip-path: inset(0 round 12px) !important; 
-  -webkit-clip-path: inset(0 round 12px) !important;
-}
+          .print-scroll-fix {
+            width: 100% !important;
+            border-radius: 12px !important;
+            overflow: hidden !important;
+            clip-path: inset(0 round 12px) !important; 
+            -webkit-clip-path: inset(0 round 12px) !important;
+          }
 
-.print-table-fix {
-  width: 100% !important;
-  min-width: 100% !important;
-  table-layout: fixed !important;
-  border-collapse: collapse !important; /* ভেতরের সব বর্ডার ঠিক রাখার জন্য collapse রাখা হয়েছে */
-  font-size: 11px !important;
-}
+          .print-table-fix {
+            width: 100% !important;
+            min-width: 100% !important;
+            table-layout: fixed !important;
+            border-collapse: collapse !important;
+            font-size: 11px !important;
+          }
 
-.print-table-fix th, 
-.print-table-fix td {
-  padding: 4px 6px !important;
-  font-size: 11px !important;
-}
+          .print-table-fix th, 
+          .print-table-fix td {
+            padding: 4px 6px !important;
+            font-size: 11px !important;
+          }
 
-.print-header-title {
-  font-size: 16px !important;
-  height: auto !important;
-  min-height: 0 !important;
-  padding: 6px 12px !important;
-  margin-bottom: 8px !important;
-  overflow: hidden !important;
-}
+          .print-header-title {
+            font-size: 16px !important;
+            height: auto !important;
+            min-height: 0 !important;
+            padding: 6px 12px !important;
+            margin-bottom: 8px !important;
+            overflow: hidden !important;
+          }
         }
       `}</style>
+
       <StudentInfo data={studentInfo} />
       <SponsorInfo data={sponsorInfo} />
       <FamilyInfo data={familyInfo} />
