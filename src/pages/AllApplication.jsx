@@ -8,6 +8,7 @@ import { getStatistics, deleteStudent } from "../services/studentApi";
 import useStudents from "../hooks/useStudents";
 import DeleteModal from "../components/dashboard/DeleteModal";
 import ApplicationTable from "../components/dashboard/ApplicationTable";
+import DashboardFooter from "../components/dashboard/DashboardFooter";
 
 export default function AllApplication() {
   // =========================
@@ -166,6 +167,7 @@ export default function AllApplication() {
           onDelete={handleDelete}
         />
       </div>
+      <DashboardFooter />
     </div>
   );
 }

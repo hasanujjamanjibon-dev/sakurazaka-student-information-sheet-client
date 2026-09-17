@@ -1,28 +1,3 @@
-// import TableHead from "./TableHead";
-// import TableBody from "./TableBody";
-
-// export default function ApplicationTable({ students, onDelete, loading }) {
-//   return (
-//     <div className="w-full min-h-[calc(100vh-450px)] overflow-hidden rounded-t-2xl border border-[#eadfdc] bg-white shadow-sm">
-//       {/* =========================
-//           TABLE SCROLL AREA
-//       ========================= */}
-//       <div className="h-full overflow-auto">
-//         <table className="w-full min-w-275 border-collapse">
-//           {/* Header */}
-//           <TableHead />
-
-//           {/* Body */}
-//           <TableBody
-//             students={students}
-//             onDelete={onDelete}
-//             loading={loading}
-//           />
-//         </table>
-//       </div>
-//     </div>
-//   );
-// }
 import TableHead from "./TableHead";
 import TableBody from "./TableBody";
 import { FolderX, Sparkles } from "lucide-react";
@@ -31,7 +6,7 @@ export default function ApplicationTable({ students, onDelete, loading }) {
   const isEmpty = !loading && (!students || students.length === 0);
 
   return (
-    <div className="w-full min-h-[calc(100vh-450px)] flex flex-col overflow-hidden rounded-t-2xl border border-[#eadfdc] bg-white shadow-sm">
+    <div className="w-full min-h-[calc(100vh-500px)] flex flex-col overflow-hidden rounded-t-2xl border border-[#eadfdc] bg-white shadow-sm">
       {/* =========================
           TABLE SCROLL AREA
       ========================= */}
