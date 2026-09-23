@@ -77,7 +77,7 @@ const CurrentEducationalInformation = () => {
           <InputField
             label={
               <span>
-                বর্তমান স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম{" "}
+                বর্তমান কলেজ/বিশ্ববিদ্যালয়ের নাম{" "}
                 <span className="text-red-500">*</span>
               </span>
             }
@@ -144,7 +144,6 @@ const CurrentEducationalInformation = () => {
                 rules={{ required: "ক্লাস রোল/আইডি দেওয়া আবশ্যক" }}
               />
 
-              {/* রেজিস্ট্রেশন নং (ভর্তি হয়েছি হলে বাধ্যতামূলক) */}
               <InputField
                 label={<span>রেজিষ্ট্রেশন নং</span>}
                 type="text"

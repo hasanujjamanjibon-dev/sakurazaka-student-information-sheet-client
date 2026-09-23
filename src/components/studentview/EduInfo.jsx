@@ -41,10 +41,10 @@ export default function EduInfo({ data }) {
                 শিক্ষার ধাপ
               </th>
               <th className="p-2.5 border-r-[3px] border-[#c01823] text-center whitespace-nowrap">
-                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের নাম
+                কলেজ/বিশ্ববিদ্যালয়ের নাম
               </th>
               <th className="p-2.5 border-r-[3px] border-[#c01823] text-center whitespace-nowrap">
-                স্কুল/কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা
+                কলেজ/বিশ্ববিদ্যালয়ের ঠিকানা
               </th>
               <th className="p-2.5 text-center whitespace-nowrap">পাশের সন</th>
             </tr>
