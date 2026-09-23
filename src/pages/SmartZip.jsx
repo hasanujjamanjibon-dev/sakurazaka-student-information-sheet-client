@@ -1,7 +1,6 @@
-import React, { useMemo, useRef, useState } from "react";
+import  { useMemo, useRef, useState } from "react";
 import {
   Archive,
-  ArrowDownToLine,
   ArrowUp,
   Check,
   ChevronDown,
