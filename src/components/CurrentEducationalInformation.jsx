@@ -154,7 +154,6 @@ const CurrentEducationalInformation = () => {
                 type="text"
                 name="currentRegistration"
                 placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
-                rules={{ required: "রেজিস্ট্রেশন নম্বর দেওয়া আবশ্যক" }}
               />
             </>
           )}
