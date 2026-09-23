@@ -146,11 +146,7 @@ const CurrentEducationalInformation = () => {
 
               {/* রেজিস্ট্রেশন নং (ভর্তি হয়েছি হলে বাধ্যতামূলক) */}
               <InputField
-                label={
-                  <span>
-                    রেজিষ্ট্রেশন নং <span className="text-red-500">*</span>
-                  </span>
-                }
+                label={<span>রেজিষ্ট্রেশন নং</span>}
                 type="text"
                 name="currentRegistration"
                 placeholder="কলেজ আইডি অনুযায়ী লিখতে হবে"
