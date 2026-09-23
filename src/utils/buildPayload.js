@@ -82,8 +82,6 @@ export const buildPayload = (data) => ({
       schoolName: safeToUpper(data.primarySchoolName),
 
       address: safeToUpper(data.primarySchoolAddress),
-
-      passingYear: safeToUpper(data.primaryPassingYear),
     },
 
     {
@@ -92,8 +90,6 @@ export const buildPayload = (data) => ({
       schoolName: safeToUpper(data.secondarySchoolName),
 
       address: safeToUpper(data.secondarySchoolAddress),
-
-      passingYear: safeToUpper(data.secondaryPassingYear),
     },
 
     {
@@ -102,8 +98,6 @@ export const buildPayload = (data) => ({
       schoolName: safeToUpper(data.higherSecondarySchoolName),
 
       address: safeToUpper(data.higherSecondarySchoolAddress),
-
-      passingYear: safeToUpper(data.higherSecondaryPassingYear),
     },
 
     {
@@ -112,8 +106,6 @@ export const buildPayload = (data) => ({
       schoolName: safeToUpper(data.honoursSchoolName),
 
       address: safeToUpper(data.honoursSchoolAddress),
-
-      passingYear: safeToUpper(data.honoursPassingYear),
     },
 
     {
@@ -122,8 +114,6 @@ export const buildPayload = (data) => ({
       schoolName: safeToUpper(data.mastersSchoolName),
 
       address: safeToUpper(data.mastersSchoolAddress),
-
-      passingYear: safeToUpper(data.mastersPassingYear),
     },
   ].filter((item) => item.schoolName),
 

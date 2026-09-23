@@ -53,7 +53,7 @@ const EducationalInformation = () => {
       {educationFields.map((item, index) => (
         <div
           key={index}
-          className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4 border-b border-gray-100 last:border-b-0"
+          className="px-4 py-3 grid grid-cols-1 md:grid-cols-2 gap-4"
         >
           <InputField
             label={
@@ -79,14 +79,6 @@ const EducationalInformation = () => {
             className={item.className}
             name={`${item.name}SchoolAddress`}
             placeholder="ইংরেজিতে লিখতে হবে"
-            labelClassName={item.labelClassName}
-          />
-          <InputField
-            label={`${item.title} এর পাশের সন`}
-            type="text"
-            className={item.className}
-            name={`${item.name}PassingYear`}
-            placeholder="মাস+পাশের সনঃ May-2020"
             labelClassName={item.labelClassName}
           />
         </div>
