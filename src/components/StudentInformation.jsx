@@ -1,7 +1,6 @@
-import { User } from "lucide-react";
 import InputField from "./common/InputField";
 import { useFormContext } from "react-hook-form";
-import TextAreaFiled from "./common/TextAreaFiled";
+
 
 export default function StudentInformation({ existingPhoto = "" }) {
   const {

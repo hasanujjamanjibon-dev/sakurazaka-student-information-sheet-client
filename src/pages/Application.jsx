@@ -584,7 +584,7 @@ const Application = () => {
       )}
 
       <form
-        className="space-y-2 max-w-7xl mx-auto p-1"
+        className="space-y-2 max-w-7xl mx-auto p-1 shadow-2xl"
         onSubmit={methods.handleSubmit(onSubmit)}
       >
         {" "}
