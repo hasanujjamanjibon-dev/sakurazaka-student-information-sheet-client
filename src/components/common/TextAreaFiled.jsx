@@ -19,11 +19,11 @@ const TextAreaFiled = ({
     <div className="grid gap-1">
       <label className={`label text-black ${labelClassName}`}>{label}</label>
 
-      <textarea
+      <input
         rows={rows}
         placeholder={placeholder}
         {...register(name, rules)} // ৩. register-এ rules পাস করা হয়েছে
-        className={`textarea textarea-bordered capitalize outline-0 w-full resize-none ${className} ${
+        className={`input outline-0 capitalize  w-full  whitespace-normal break-words leading-tight ${className} ${
           errors[name] ? "border-red-500 focus:border-red-500" : ""
         }`}
         {...props}
