@@ -368,31 +368,14 @@ const Application = () => {
   const onSubmit = async (data) => {
     try {
       const phoneFields = [
-        {
-          key: "studentPhone",
-          label: "Student Number",
-        },
-        {
-          key: "studentAltPhone",
-          label: "Student Another Number",
-        },
-        {
-          key: "studentFatherPhone",
-          label: "Father Number",
-        },
-        {
-          key: "studentMotherPhone",
-          label: "Mother Number",
-        },
+        { key: "studentPhone", label: "Student Number" },
+        { key: "studentAltPhone", label: "Student Another Number" },
+        { key: "studentFatherPhone", label: "Father Number" },
+        { key: "studentMotherPhone", label: "Mother Number" },
       ];
-
-      // =====================================================
-      // PHONE VALIDATION
-      // =====================================================
 
       for (const field of phoneFields) {
         const phone = (data[field.key] || "").trim();
-
         if (!phone) {
           Swal.fire({
             icon: "warning",
@@ -401,7 +384,6 @@ const Application = () => {
             showConfirmButton: false,
             timer: 3000,
           });
-
           return;
         }
 
@@ -413,19 +395,13 @@ const Application = () => {
             showConfirmButton: false,
             timer: 3000,
           });
-
           return;
         }
       }
 
-      // =====================================================
-      // DUPLICATE PHONE CHECK
-      // =====================================================
-
       for (let i = 0; i < phoneFields.length; i++) {
         for (let j = i + 1; j < phoneFields.length; j++) {
           const value1 = (data[phoneFields[i].key] || "").trim();
-
           const value2 = (data[phoneFields[j].key] || "").trim();
 
           if (value1 && value2 && value1 === value2) {
@@ -436,23 +412,14 @@ const Application = () => {
               timer: 2500,
               text: `${phoneFields[i].label} and ${phoneFields[j].label} cannot be the same.`,
             });
-
             return;
           }
         }
       }
 
       setLoading(true);
-
-      setProgress(10);
+      setProgress(20);
       setProgressText(isEditMode ? "Preparing update..." : "Preparing data...");
-
-      // =====================================================
-      // IMAGES
-      // =====================================================
-
-      setProgress(35);
-      setProgressText("Processing images...");
 
       let studentPhoto = existingStudentPhoto;
       let sponsorPhoto = existingSponsorPhoto;
@@ -469,33 +436,19 @@ const Application = () => {
 
       if (hasNewStudentPhoto || hasNewSponsorPhoto) {
         const image = await uploadImages(data, backendBaseURL);
-
-        if (image?.studentPhoto) {
-          studentPhoto = image.studentPhoto;
-        }
-
-        if (image?.sponsorPhoto) {
-          sponsorPhoto = image.sponsorPhoto;
-        }
+        if (image?.studentPhoto) studentPhoto = image.studentPhoto;
+        if (image?.sponsorPhoto) sponsorPhoto = image.sponsorPhoto;
       }
 
       data.studentPhoto = studentPhoto;
       data.sponsorPhoto = sponsorPhoto;
 
-      // =====================================================
-      // BUILD PAYLOAD
-      // =====================================================
-
       const payload = buildPayload(data);
 
-      setProgress(75);
+      setProgress(70);
       setProgressText(
         isEditMode ? "Updating information..." : "Saving information...",
       );
-
-      // =====================================================
-      // POST / PUT
-      // =====================================================
 
       if (isEditMode) {
         await updateStudent(id, payload);
@@ -504,35 +457,41 @@ const Application = () => {
       }
 
       setProgress(100);
-      setProgressText("Completed.");
 
       await Swal.fire({
         icon: "success",
         title: isEditMode ? "Updated Successfully" : "Success",
-
         text: isEditMode
           ? "Student information updated successfully."
           : "Application submitted successfully.",
-
-        timer: 1500,
+        timer: 1800,
         showConfirmButton: false,
       });
 
       if (isEditMode) {
         navigate(`/view/${id}`);
+      } else {
+        // =========================================================
+        // 🚀 FORM RESET & STATE CLEARING (ADDED HERE)
+        // =========================================================
+        reset();
+
+        // Photo State Clear
+        setExistingStudentPhoto("");
+        setExistingSponsorPhoto("");
+
+        // Page Scroll to Top (Optional - ভালো অভিজ্ঞতার জন্য)
+        window.scrollTo({ top: 0, behavior: "smooth" });
       }
     } catch (error) {
       console.error(error);
-
       Swal.fire({
         icon: "error",
         title: isEditMode ? "Update Failed" : "Submission Failed",
-
         text:
           error.response?.data?.message ||
           error.message ||
           "Something went wrong.",
-
         timer: 2500,
         showConfirmButton: false,
       });
