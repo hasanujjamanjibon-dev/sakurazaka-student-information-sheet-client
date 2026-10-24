@@ -106,7 +106,7 @@ function JapLangInfoSec({ data }) {
 
                   {/* রেজাল্ট/ইস্যুর তারিখ */}
                   <td className="p-2.5 text-[#090909] font-['Noto_Sans_Bengali',sans-serif] text-[14px] lg:text-[16px] align-middle text-center whitespace-nowrap overflow-hidden text-ellipsis">
-                    {item.resultDate || item.issueDate || item.examDate}
+                    {item.expectedExamDate}
                   </td>
                 </tr>
               ))}
