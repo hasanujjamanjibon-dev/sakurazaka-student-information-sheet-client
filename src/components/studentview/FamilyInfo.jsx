@@ -153,7 +153,7 @@ const FamilyInfo = ({ data }) => {
 
                 {/* জন্ম তারিখ */}
                 <td className="p-2 text-black font-[Arial,Helvetica,sans-serif] text-[13px] sm:text-[15px] align-middle border-r-[3px] border-[#e5007d] text-center whitespace-nowrap overflow-hidden text-ellipsis print:border-r-[2px] print:p-1 print:text-[12px]">
-                  {showDate(member?.dob ? member.dob.split("T")[0] : "")}
+                  {showDate(member?.dob)}
                 </td>
 
                 {/* পেশা */}
