@@ -17,7 +17,7 @@ export default function showDate(date) {
   ];
 
   // =========================================
-  // 1. যদি ডেটাটি সরাসরি YYYY-MM-DD ফরম্যাটের স্ট্রিং হয় (সময় ছাড়া)
+  // 1. যদি ডেটাটি সরাসরি YYYY-MM-DD ফরম্যাটের স্ট্রিং হয়
   // =========================================
   const value = String(date).trim();
   if (/^\d{4}-\d{2}-\d{2}$/.test(value)) {
@@ -27,8 +27,7 @@ export default function showDate(date) {
   }
 
   // =========================================
-  // 2. MongoDB Date / ISO String (সময় সহ যেমন: T18:00:00.000Z)
-  // এটিকে লোকাল টাইমজোনে (Bangladesh GMT+6) কনভার্ট করে সঠিক তারিখ নেওয়া হচ্ছে
+  // 2. MongoDB Date / ISO String (লোকাল টাইমজোনে সঠিক তারিখ বের করা)
   // =========================================
   const parsedDate = date instanceof Date ? date : new Date(date);
   if (!isNaN(parsedDate.getTime())) {
@@ -50,11 +49,8 @@ export default function showDate(date) {
     return m ? `${day}-${m}-${year}` : "";
   }
 
-  // DD-MM-YYYY
-  if (
-    /^\d{2}-\d-?{2}-\d{4}$/.test(value) ||
-    /^\d{2}-\d{2}-\d{4}$/.test(value)
-  ) {
+  // DD-MM-YYYY (সঠিক করা রেগুলার এক্সপ্রেশন)
+  if (/^\d{2}-\d{2}-\d{4}$/.test(value)) {
     const [day, month, year] = value.split("-");
     const m = monthNames[parseInt(month, 10) - 1];
     return m ? `${day}-${m}-${year}` : "";
