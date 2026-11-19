@@ -62,7 +62,6 @@ const Application = () => {
 
         const info = student.studentInformation || {};
         const sponsor = student.sponsorInformation || {};
-        console.log("student DOB", toInputDate(info.studentDob));
         // =====================================================
         // FAMILY
         // =====================================================

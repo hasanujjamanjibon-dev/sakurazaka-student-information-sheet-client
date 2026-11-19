@@ -129,9 +129,7 @@ function SmartZip() {
     const selectedFiles = Array.from(files);
 
     try {
-      console.log("=================================");
-      console.log("SELECTED FILES:", selectedFiles.length);
-      console.log("=================================");
+
 
       // Reset previous result
       resetData();
@@ -146,10 +144,10 @@ function SmartZip() {
       setStatus("uploading");
       setProgress(0);
 
-      console.log("Uploading files...");
+
 
       const response = await uploadFiles(selectedFiles, (percent) => {
-        console.log("Upload progress:", percent);
+
 
         // Upload = first 40% of total process
         const overallProgress = Math.min(40, Math.round((percent / 100) * 40));
@@ -157,8 +155,7 @@ function SmartZip() {
         setProgress(overallProgress);
       });
 
-      console.log("UPLOAD RESPONSE:", response);
-      console.log("UPLOAD DATA:", response?.data);
+
 
       if (!response?.data?.success) {
         throw new Error(response?.data?.message || "File upload failed.");
@@ -174,7 +171,7 @@ function SmartZip() {
         throw new Error("Job ID was not returned from server.");
       }
 
-      console.log("JOB ID:", jobId);
+     
 
       // =========================
       // STEP 3: ANALYZE
@@ -183,12 +180,10 @@ function SmartZip() {
       setStatus("analyzing");
       setProgress(45);
 
-      console.log("Starting analysis for job:", jobId);
 
       const analyzeResponse = await analyzeJob(jobId);
 
-      console.log("ANALYZE RESPONSE:", analyzeResponse);
-      console.log("ANALYZE DATA:", analyzeResponse?.data);
+
 
       const result = analyzeResponse?.data;
 
@@ -202,10 +197,6 @@ function SmartZip() {
       // SAVE REAL ANALYSIS DATA
       // =========================
 
-      console.log("REAL FOLDER TREE:", result.tree);
-      console.log("REAL FILE COUNT:", result.files);
-      console.log("REAL FOLDER COUNT:", result.folders);
-      console.log("REAL TOTAL SIZE:", result.total_size);
 
       setFolderTree(result.tree || []);
       setTotalFiles(result.files || 0);
@@ -220,14 +211,9 @@ function SmartZip() {
 
       setStatus("compressing");
 
-      console.log("Starting compression for job:", jobId);
+
 
       const compressResponse = await compressJob(jobId);
-
-      console.log("COMPRESS RESPONSE:", compressResponse);
-
-      console.log("COMPRESS DATA:", compressResponse?.data);
-
       const compressResult = compressResponse?.data;
 
       if (!compressResult?.success) {
@@ -245,13 +231,7 @@ function SmartZip() {
       // SAVE COMPRESSION RESULT
       // =========================
 
-      console.log("Original size:", compressResult.original_size_mb, "MB");
 
-      console.log("Compressed size:", compressResult.compressed_size_mb, "MB");
-
-      console.log("Saved:", compressResult.saved_percentage, "%");
-
-      console.log("Under 25 MB:", compressResult.under_25mb);
 
       setCompressionResult({
         originalSize: compressResult.original_size,
@@ -280,9 +260,7 @@ function SmartZip() {
 
       setStatus("complete");
 
-      console.log("=================================");
-      console.log("PROCESS COMPLETED SUCCESSFULLY");
-      console.log("=================================");
+
     } catch (error) {
       console.error("PROCESS ERROR:", error);
       console.error("ERROR RESPONSE:", error?.response);

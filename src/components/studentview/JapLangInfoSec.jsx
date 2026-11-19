@@ -1,5 +1,4 @@
 function JapLangInfoSec({ data }) {
-  console.log(data);
 
   return (
     <section>
